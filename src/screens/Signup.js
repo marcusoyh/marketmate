@@ -19,7 +19,7 @@ const Signup = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text style={{ color: '#e93766', fontSize: 40 }}>Sign Up</Text>
-
+            <Text style={{ color: 'red' }}>{errorMessage}</Text>
             <TextInput
                 placeholder="Email"
                 autoCapitalize="none"
