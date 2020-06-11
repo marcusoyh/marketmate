@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react';
@@ -14,7 +15,7 @@ const Signup = ({ navigation }) => {
         console.log('SIGNING UP');
         console.log(email);
         console.log(password);
-    }
+    };
 
     return (
         <View style={styles.container}>
