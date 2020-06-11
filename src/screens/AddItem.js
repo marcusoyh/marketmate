@@ -16,14 +16,7 @@ const AddItem = () => {
 
   const [name,setName] = useState('');
 
-  const addItem = item => {
-    db.ref('/items').push({
-      name:item,
-    });
-  };
-
   const submit = () => {
-    //addItem(name);
     console.log('*****');
     console.log(name);
     db.ref('/items').push({

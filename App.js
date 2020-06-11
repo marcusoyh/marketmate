@@ -7,15 +7,19 @@ import Home from './src/screens/Home';
 // we will use these two screens later in our AppNavigator
 import AddItem from './src/screens/AddItem';
 import List from './src/screens/List';
+import Login from './src/screens/Login';
+import Signup from './src/screens/Signup';
 
 const App = () => {
   const AppNavigator = createStackNavigator({
     Home,
     AddItem,
     List,
+    Login,
+    Signup,
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Signup',
   }
   );
 
