@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect, useLayoutEffect } from 'react';
 import { View, Text, Button } from 'react-native';
 import firebase from 'firebase';
 import styles from './Style';
@@ -12,21 +13,24 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  });
+
+  // useLayoutEffect(() => {
+  //   getUser();
+  // },[]);
 
   const getUser = async () => {
     const user = firebase.auth().currentUser;
-    console.log(user.email);
-    setCurrentUser(user);
+    //setCurrentUser(user);
+    setCurrentUser(firebase.auth().currentUser);
     setEmail(user.email);
-    console.log(user);
   };
 
   return (
     <View>
       <Text>Home Screen</Text>
       <Text style={{ fontSize: 20 }}>
-        Hi
+        Hi 
         <Text style={{ color: '#e93766', fontSize: 20 }}>
           {email}!
         </Text>

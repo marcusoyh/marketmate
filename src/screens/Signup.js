@@ -13,16 +13,11 @@ const Signup = ({ navigation }) => {
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleSignUp = () => {
-        // console.log('SIGNING UP');
-        // console.log(email);
-        // console.log(password);
-
         firebase
             .auth()
             .createUserWithEmailAndPassword(email,password)
             .then(() => navigation.navigate('Home'))
             .catch(error => setErrorMessage(error.message));
-
     };
 
     return (

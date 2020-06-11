@@ -4,15 +4,19 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import styles from './Style';
 
+import firebase from 'firebase';
+
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleLogin = () => {
-        console.log('LOGGING IN');
-        console.log(email);
-        console.log(password);
+        firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(() => navigation.navigate('Home'))
+        .catch(error => setErrorMessage(error.message));
     };
 
     return (
