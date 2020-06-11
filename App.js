@@ -9,7 +9,7 @@ import AddItem from './src/screens/AddItem';
 import List from './src/screens/List';
 import Login from './src/screens/Login';
 import Signup from './src/screens/Signup';
-import Loading from './src/sreens/Loading';
+//import Loading from './src/sreens/Loading';
 
 const App = () => {
   const AppNavigator = createStackNavigator({

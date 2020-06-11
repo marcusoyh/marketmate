@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TextInput, View, Button, TouchableOpacity } from 'react-native';
 import styles from './Style';
+import firebase from 'firebase';
 
 const Signup = ({ navigation }) => {
 
@@ -11,10 +12,17 @@ const Signup = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSignUp =  () => {
-        console.log('SIGNING UP');
-        console.log(email);
-        console.log(password);
+    const handleSignUp = () => {
+        // console.log('SIGNING UP');
+        // console.log(email);
+        // console.log(password);
+
+        firebase
+            .auth()
+            .createUserWithEmailAndPassword(email,password)
+            .then(() => navigation.navigate('Home'))
+            .catch(error => setErrorMessage(error.message));
+
     };
 
     return (
