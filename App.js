@@ -21,7 +21,7 @@ const App = () => {
     LoadingScreen,
   },
   {
-    initialRouteName: 'LoadingScreen',
+    initialRouteName: 'Signup',
   }
   );
 
