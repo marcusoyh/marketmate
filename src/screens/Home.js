@@ -26,6 +26,11 @@ const Home = ({ navigation }) => {
     setEmail(user.email);
   };
 
+  const handleLogout = () => {
+    firebase.auth().signOut();
+    navigation.navigate('Signup');
+  };
+
   return (
     <View>
       <Text>Home Screen</Text>
@@ -35,6 +40,9 @@ const Home = ({ navigation }) => {
           {email}!
         </Text>
       </Text>
+      <Button
+      title="Logout"
+      onPress={handleLogout} />
       <Button
         title="Add an Item"
         onPress={() => navigation.navigate('AddItem')}
