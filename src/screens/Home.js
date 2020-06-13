@@ -11,6 +11,7 @@ const Home = ({ navigation }) => {
   const [currentUser, setCurrentUser] = useState();
   const [email, setEmail] = useState('');
   const [displayName, setDisplayName] = useState();
+  const [verifiedMessage, setVerifiedMessage] = useState();
 
   useEffect(() => {
     getUser();
@@ -26,6 +27,18 @@ const Home = ({ navigation }) => {
     setCurrentUser(firebase.auth().currentUser);
     setEmail(user.email);
     setDisplayName(user.displayName);
+    setVerifiedMessage(user.isEmailVerified);
+    try {
+      if (user.isEmailVerified) {
+        setVerifiedMessage('Verified');
+      } else {
+        setVerifiedMessage('Unverified');
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+
+
   };
 
   const handleLogout = () => {
@@ -36,15 +49,16 @@ const Home = ({ navigation }) => {
   return (
     <View>
       <Text>Home Screen</Text>
+      <Text>{verifiedMessage}</Text>
       <Text style={{ fontSize: 20 }}>
-        Hi 
+        Hi
         <Text style={{ color: '#e93766', fontSize: 20 }}>
           {displayName}!
         </Text>
       </Text>
       <Button
-      title="Logout"
-      onPress={handleLogout} />
+        title="Logout"
+        onPress={handleLogout} />
       <Button
         title="Add an Item"
         onPress={() => navigation.navigate('AddItem')}

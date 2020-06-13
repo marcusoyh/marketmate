@@ -16,19 +16,26 @@ const Signup = ({ navigation }) => {
     // const handleSignUp = () => {
     //     firebase
     //         .auth()
-    //         .createUserWithEmailAndPassword(email,password)
-    //         .then(() => navigation.navigate('Home'))
+    //         .createUserWithEmailAndPassword(email, password)
+    //         .then((userCredentials) => {
+    //             userCredentials.user.updateProfile({
+    //                 displayName: name,
+    //             })
+    //                 .then(() => navigation.navigate('Home'));
+    //         })
     //         .catch(error => setErrorMessage(error.message));
     // };
 
     const handleSignUp = () => {
         firebase
             .auth()
-            .createUserWithEmailAndPassword(email,password)
+            .createUserWithEmailAndPassword(email, password)
             .then((userCredentials) => {
                 userCredentials.user.updateProfile({
                     displayName: name,
-                }).then(()=> navigation.navigate('Home'));
+                }).then(() => {
+                    userCredentials.user.sendEmailVerification();
+                }).then(() => navigation.navigate('Home'));
             })
             .catch(error => setErrorMessage(error.message));
     };
