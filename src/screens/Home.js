@@ -10,6 +10,7 @@ import styles from './Style';
 const Home = ({ navigation }) => {
   const [currentUser, setCurrentUser] = useState();
   const [email, setEmail] = useState('');
+  const [displayName, setDisplayName] = useState();
 
   useEffect(() => {
     getUser();
@@ -24,6 +25,7 @@ const Home = ({ navigation }) => {
     //setCurrentUser(user);
     setCurrentUser(firebase.auth().currentUser);
     setEmail(user.email);
+    setDisplayName(user.displayName);
   };
 
   const handleLogout = () => {
@@ -37,7 +39,7 @@ const Home = ({ navigation }) => {
       <Text style={{ fontSize: 20 }}>
         Hi 
         <Text style={{ color: '#e93766', fontSize: 20 }}>
-          {email}!
+          {displayName}!
         </Text>
       </Text>
       <Button
