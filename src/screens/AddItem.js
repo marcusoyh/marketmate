@@ -11,24 +11,49 @@ import {
 } from 'react-native';
 
 import { db } from '../config';
+import firebase from 'firebase';
 
 const AddItem = () => {
 
   const [name,setName] = useState('');
+  const [price,setPrice] = useState();
+  const [quantity, setQuantity] = useState();
+  const [date,setDate] = useState();
+  const [notes,setNotes] = useState();
+  
+  // const submit = () => {
+  //   console.log('*****');
+  //   console.log(name);
+  //   db.ref('/items').push({
+  //     name:name,
+  //   });
+  //   Alert.alert('Item saved successfully');
+  // };
 
   const submit = () => {
-    console.log('*****');
-    console.log(name);
-    db.ref('/items').push({
+    const user = firebase.auth().currentUser;
+    db.ref('/' + user.uid + '/' + '/items').push({
       name:name,
+      price:price,
+      quantity:quantity,
+      date:date,
+      notes:notes,
     });
     Alert.alert('Item saved successfully');
   };
 
   return (
     <View style={styles.main}>
-      <Text style={styles.title}>Add Item</Text>
+      <Text style={styles.title}>Name</Text>
       <TextInput style={styles.itemInput} onChange={e => setName(e.nativeEvent.text)} />
+      <Text style={styles.title}>Price</Text>
+      <TextInput style={styles.itemInput} onChange={e => setPrice(e.nativeEvent.text)} />
+      <Text style={styles.title}>Quantity</Text>
+      <TextInput style={styles.itemInput} onChange={e => setQuantity(e.nativeEvent.text)} />
+      <Text style={styles.title}>Date</Text>
+      <TextInput style={styles.itemInput} textContentType onChange={e => setDate(e.nativeEvent.text)} />
+      <Text style={styles.title}>Notes</Text>
+      <TextInput style={styles.itemInput} textContentType onChange={e => setNotes(e.nativeEvent.text)} />
       <TouchableHighlight
         style={styles.button}
         underlayColor="white"
