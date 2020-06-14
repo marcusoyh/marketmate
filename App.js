@@ -10,6 +10,7 @@ import List from './src/screens/List';
 import Login from './src/screens/Login';
 import Signup from './src/screens/Signup';
 import LoadingScreen from './src/screens/LoadingScreen';
+import PersonalList from './src/screens/PersonalList';
 
 const App = () => {
   const AppNavigator = createStackNavigator({
@@ -19,6 +20,7 @@ const App = () => {
     Login,
     Signup,
     LoadingScreen,
+    PersonalList,
   },
   {
     initialRouteName: 'Signup',

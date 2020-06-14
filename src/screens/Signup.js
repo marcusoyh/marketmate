@@ -8,15 +8,35 @@ import firebase from 'firebase';
 
 const Signup = ({ navigation }) => {
 
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
+    // const handleSignUp = () => {
+    //     firebase
+    //         .auth()
+    //         .createUserWithEmailAndPassword(email, password)
+    //         .then((userCredentials) => {
+    //             userCredentials.user.updateProfile({
+    //                 displayName: name,
+    //             })
+    //                 .then(() => navigation.navigate('Home'));
+    //         })
+    //         .catch(error => setErrorMessage(error.message));
+    // };
+
     const handleSignUp = () => {
         firebase
             .auth()
-            .createUserWithEmailAndPassword(email,password)
-            .then(() => navigation.navigate('Home'))
+            .createUserWithEmailAndPassword(email, password)
+            .then((userCredentials) => {
+                userCredentials.user.updateProfile({
+                    displayName: name,
+                }).then(() => {
+                    userCredentials.user.sendEmailVerification();
+                }).then(() => navigation.navigate('Home'));
+            })
             .catch(error => setErrorMessage(error.message));
     };
 
@@ -25,6 +45,12 @@ const Signup = ({ navigation }) => {
             <Text style={{ color: '#e93766', fontSize: 40 }}>Sign Up</Text>
             <Text style={{ color: 'red' }}>{errorMessage}</Text>
             <TextInput
+                placeholder="Display Name"
+                autoCapitalize="none"
+                style={styles.textInput}
+                onChange={e => setName(e.nativeEvent.text)}
+                value={name}
+            /><TextInput
                 placeholder="Email"
                 autoCapitalize="none"
                 style={styles.textInput}
