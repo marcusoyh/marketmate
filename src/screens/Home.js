@@ -68,6 +68,11 @@ const Home = ({ navigation }) => {
         color="green"
         onPress={() => navigation.navigate('List')}
       />
+      <Button
+        title="Personal List"
+        color="green"
+        onPress={() => navigation.navigate('PersonalList')}
+      />
     </View>
   );
 };
