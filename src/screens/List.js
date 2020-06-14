@@ -158,8 +158,9 @@ import { View, Text, StyleSheet, CheckBox} from 'react-native';
 
 
 import { db } from '../config';
+import firebase from 'firebase';
 
-let itemsRef = db.ref('/items');
+//let itemsRef = db.ref('/items');
 
 export default class List extends Component {
   state = {
@@ -168,6 +169,8 @@ export default class List extends Component {
   };
 
   componentDidMount() {
+    const uid = firebase.auth().currentUser.uid;
+    let itemsRef = db.ref('/' + uid + '/items');
     itemsRef.on('value', snapshot => {
       let data = snapshot.val();
       let items = Object.values(data);
