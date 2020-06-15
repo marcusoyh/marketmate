@@ -1,13 +1,13 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
-import React, { Component, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   TouchableHighlight,
   StyleSheet,
   TextInput,
-  AlertIOS,
   Alert,
 } from 'react-native';
 import DatePicker from 'react-native-datepicker';
@@ -72,7 +72,7 @@ const AddItem = () => {
           },
           dateInput: {
             marginLeft: 36,
-          }
+          },
           // ... You can check the source to find the other keys.
         }}
         onDateChange={(d) => setDate(d) }

@@ -1,11 +1,11 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
-import React, { Component, useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { View, Text, Button } from 'react-native';
 import firebase from 'firebase';
-import styles from './Style';
 
 const Home = ({ navigation }) => {
   const [currentUser, setCurrentUser] = useState();
@@ -67,6 +67,11 @@ const Home = ({ navigation }) => {
         title="List of Items"
         color="green"
         onPress={() => navigation.navigate('List')}
+      />
+      <Button
+        title="Create a List"
+        color="blue"
+        onPress={() => navigation.navigate('AddList')}
       />
     </View>
   );
