@@ -7,7 +7,9 @@ import {
     StyleSheet,
     TextInput,
     Alert,
+    ScrollView,
 } from 'react-native';
+import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 
 import { db } from '../config';
 import firebase from 'firebase';
@@ -18,7 +20,7 @@ import InputItem from '../components/InputItem';
 const AddList = () => {
     const [name, setName] = useState('');
     const [items, setItems] = useState([{}]);
-    const [texts, setTexts] = useState([]);
+    const [itemNames, setItemNames] = useState([]);
 
     const submit = () => {
         const user = firebase.auth().currentUser;
@@ -39,6 +41,8 @@ const AddList = () => {
         //newItems[index] = { 'name': e.nativeEvent.text };
         //newItems[index][0]= e.nativeEvent.text;
         setItems(newItems);
+        setItemNames((i) => i.concat(e.nativeEvent.text));
+
     };
 
     const handleChangePrice = (e, index) => {
@@ -62,62 +66,57 @@ const AddList = () => {
         });
     };
 
-    const addText = () => {
-        const newTexts = texts;
-        setTexts((i) => i.concat(''));
-    }
-
-    const handleChangeText = (e, index) => {
-        const newTexts = texts;
-        newTexts[index] = e.nativeEvent.text;
-        setTexts(newTexts);
-    }
-
     return (
-        <View style={styles.main}>
-            <Text style={styles.title}>List Name</Text>
-            <TextInput
-                style={styles.itemInput}
-                onChange={(e) => setName(e.nativeEvent.text)}
-            />
-            <Text style={styles.subtitle}>Items</Text>
-            {/* {texts.map((text, index) => {
-                return (
-                    <View>
-                        <TextInput style={styles.itemInput} onChange={(e) => handleChangeText(e, index)} /></View>
-                );
-            })} */}
+        <ScrollView>
+            <View style={styles.main}>
+                <Text style={styles.title}>List Name</Text>
+                <TextInput
+                    style={styles.itemInput}
+                    onChange={(e) => setName(e.nativeEvent.text)}
+                />
+                <Text style={styles.subtitle}>Items</Text>
 
-            {items.map((item, index) => {
-                return (
-                    <View>
-                    <TextInput style={styles.itemInput} onChange={(e) => handleChangeName(e, index)} />
+                {items.map((item, index) => {
+                    return (
+                        <View>
+                            <Collapse>
+                                <CollapseHeader>
+                                    <Text>Item {index+1}</Text>
+                                </CollapseHeader>
+                                <CollapseBody>
+                                    <TextInput style={styles.itemInput} onChange={(e) => handleChangeName(e, index)} />
+                                    <TextInput style={styles.itemInput} onChange={(e) => handleChangePrice(e, index)} />
+                                </CollapseBody>
+                            </Collapse>
+                            {/* <TextInput style={styles.itemInput} onChange={(e) => handleChangeName(e, index)} />
                     <TextInput style={styles.itemInput} onChange={(e) => handleChangePrice(e, index)} />
-                    </View>
-                );
-            })}
+                     */}
+                        </View>
+                    );
+                })}
 
-            <TouchableHighlight
-                style={styles.button}
-                underlayColor="white"
-                onPress={addItem}>
-                <Text style={styles.buttonText}>Add Item</Text>
-            </TouchableHighlight>
+                <TouchableHighlight
+                    style={styles.button}
+                    underlayColor="white"
+                    onPress={addItem}>
+                    <Text style={styles.buttonText}>Add Item</Text>
+                </TouchableHighlight>
 
-            {/* <TouchableHighlight
+                {/* <TouchableHighlight
                 style={styles.button}
                 underlayColor="white"
                 onPress={addText}>
                 <Text style={styles.buttonText}>Add Item</Text>
             </TouchableHighlight> */}
 
-            <TouchableHighlight
-                style={styles.button}
-                underlayColor="green"
-                onPress={submit}>
-                <Text style={styles.buttonText}>Create</Text>
-            </TouchableHighlight>
-        </View>
+                <TouchableHighlight
+                    style={styles.button}
+                    underlayColor="green"
+                    onPress={submit}>
+                    <Text style={styles.buttonText}>Create</Text>
+                </TouchableHighlight>
+            </View>
+        </ScrollView>
     );
 };
 const styles = StyleSheet.create({
