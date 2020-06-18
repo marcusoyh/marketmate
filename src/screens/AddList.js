@@ -12,9 +12,12 @@ import {
 import { db } from '../config';
 import firebase from 'firebase';
 
+//COMPONENTS
+import InputItem from '../components/InputItem';
+
 const AddList = () => {
     const [name, setName] = useState('');
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState([{}]);
 
     const submit = () => {
         const user = firebase.auth().currentUser;
@@ -25,18 +28,36 @@ const AddList = () => {
         Alert.alert('List saved successfully');
     };
 
-    const handleChange = (e, index) => {
+    const handleChangeName = (e, index) => {
         console.log('INDEX:');
         console.log(index);
         console.log(e.nativeEvent.text);
         const newItems = items;
-        newItems[index] = e.nativeEvent.text;
+        newItems[index]["name"] = e.nativeEvent.text;
+        //newItems[index] = { 'name': e.nativeEvent.text };
+        //newItems[index][0]= e.nativeEvent.text;
+        setItems(newItems);
+    };
+
+    const handleChangePrice = (e, index) => {
+        console.log('INDEX:');
+        console.log(index);
+        console.log(e.nativeEvent.text);
+        const newItems = items;
+        newItems[index]["notes"] = e.nativeEvent.text;
+        //newItems[index][1] = e.nativeEvent.text;
         setItems(newItems);
     };
 
     const addItem = () => {
-        setItems((i) => i.concat(' '));
+         const newItems = items;
+         newItems.push({});
+         setItems(newItems);
+        //setItems((i) => i.concat(''));
         console.log(items);
+        items.map((item,index) => {
+            console.log(item);
+        });
     };
 
     return (
@@ -49,7 +70,10 @@ const AddList = () => {
             <Text style={styles.subtitle}>Items</Text>
             {items.map((item, index) => {
                 return (
-                        <TextInput style={styles.itemInput} onChange={(e) => handleChange(e, index)} />
+                    <View>
+                    <TextInput style={styles.itemInput} onChange={(e) => handleChangeName(e, index)} />
+                    <TextInput style={styles.itemInput} onChange={(e) => handleChangePrice(e, index)} />
+                    </View>
                 );
             })}
 
