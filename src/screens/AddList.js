@@ -18,11 +18,13 @@ import InputItem from '../components/InputItem';
 const AddList = () => {
     const [name, setName] = useState('');
     const [items, setItems] = useState([{}]);
+    const [texts, setTexts] = useState([]);
 
     const submit = () => {
         const user = firebase.auth().currentUser;
         db.ref('/' + user.uid + '/' + '/lists').push({
             items: items,
+            //items: texts,
             name: name,
         });
         Alert.alert('List saved successfully');
@@ -50,15 +52,26 @@ const AddList = () => {
     };
 
     const addItem = () => {
-         const newItems = items;
-         newItems.push({});
-         setItems(newItems);
+        const newItems = items;
+        newItems.push({});
+        setItems(newItems);
         //setItems((i) => i.concat(''));
         console.log(items);
-        items.map((item,index) => {
+        items.map((item, index) => {
             console.log(item);
         });
     };
+
+    const addText = () => {
+        const newTexts = texts;
+        setTexts((i) => i.concat(''));
+    }
+
+    const handleChangeText = (e, index) => {
+        const newTexts = texts;
+        newTexts[index] = e.nativeEvent.text;
+        setTexts(newTexts);
+    }
 
     return (
         <View style={styles.main}>
@@ -68,6 +81,13 @@ const AddList = () => {
                 onChange={(e) => setName(e.nativeEvent.text)}
             />
             <Text style={styles.subtitle}>Items</Text>
+            {/* {texts.map((text, index) => {
+                return (
+                    <View>
+                        <TextInput style={styles.itemInput} onChange={(e) => handleChangeText(e, index)} /></View>
+                );
+            })} */}
+
             {items.map((item, index) => {
                 return (
                     <View>
@@ -83,6 +103,13 @@ const AddList = () => {
                 onPress={addItem}>
                 <Text style={styles.buttonText}>Add Item</Text>
             </TouchableHighlight>
+
+            {/* <TouchableHighlight
+                style={styles.button}
+                underlayColor="white"
+                onPress={addText}>
+                <Text style={styles.buttonText}>Add Item</Text>
+            </TouchableHighlight> */}
 
             <TouchableHighlight
                 style={styles.button}
