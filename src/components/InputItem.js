@@ -17,6 +17,7 @@ const InputItem = () => {
     const [date, setDate] = useState();
     const [notes, setNotes] = useState();
 
+
     const [collapsed, setCollapsed] = useState(true);
     return (
         <Collapsible collapsed = {collapsed} align = "center">
