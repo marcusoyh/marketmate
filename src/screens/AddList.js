@@ -52,7 +52,7 @@ const AddList = () => {
         console.log(index);
         console.log(e.nativeEvent.text);
         const newItems = items;
-        newItems[index]["notes"] = e.nativeEvent.text;
+        newItems[index]["price"] = e.nativeEvent.text;
         //newItems[index][1] = e.nativeEvent.text;
         setItems(newItems);
     };
@@ -72,7 +72,7 @@ const AddList = () => {
         console.log(index);
         console.log(e.nativeEvent.text);
         const newItems = items;
-        newItems[index]["price"] = e.nativeEvent.text;
+        newItems[index]["notes"] = e.nativeEvent.text;
         //newItems[index][1] = e.nativeEvent.text;
         setItems(newItems);
     };
@@ -148,13 +148,6 @@ const AddList = () => {
                     onPress={addItem}>
                     <Text style={styles.addItemButtonText}>Add Item</Text>
                 </TouchableHighlight>
-
-                {/* <TouchableHighlight
-                style={styles.button}
-                underlayColor="white"
-                onPress={addText}>
-                <Text style={styles.buttonText}>Add Item</Text>
-            </TouchableHighlight> */}
 
                 <TouchableHighlight
                     style={styles.button}

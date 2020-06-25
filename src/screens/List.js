@@ -154,7 +154,7 @@
 // });
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, CheckBox, TextInput } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, CheckBox, TextInput } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 
 import { db } from '../config';
@@ -244,7 +244,7 @@ export default class List extends Component {
 
 
   render() {
-    return <View style={styles.container}>{this.listM()}</View>;
+    return <ScrollView><View style={styles.container}>{this.listM()}</View></ScrollView>;
   };
 }
 
