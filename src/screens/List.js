@@ -61,9 +61,9 @@
 //                             onChange={() => this.onChangeCheck()} />
 //                         {item.name}
 //                      </Text>
-                    
+
 //                   </TouchableOpacity>
-                
+
 //                ))
 //             }
 //          </View>
@@ -110,7 +110,7 @@
 //   render() {
 //     return (
 //       <View style={styles.container}>
-     
+
 
 //           {/* <ItemComponent items={this.state.items} />
 //           <CheckBox
@@ -134,7 +134,7 @@
 //                ))
 //             }
 //       </View>
-  
+
 //     );
 //   }
 
@@ -154,8 +154,8 @@
 // });
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, CheckBox} from 'react-native';
-
+import { View, Text, StyleSheet, CheckBox, TextInput } from 'react-native';
+import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 
 import { db } from '../config';
 import firebase from 'firebase';
@@ -165,12 +165,12 @@ import firebase from 'firebase';
 export default class List extends Component {
   state = {
     items: [],
-    checked:false,
+    checked: false,
   };
 
   componentDidMount() {
     const uid = firebase.auth().currentUser.uid;
-    let itemsRef = db.ref('/' + uid + '/items');
+    let itemsRef = db.ref('/' + uid + '/lists');
     itemsRef.on('value', snapshot => {
       let data = snapshot.val();
       let items = Object.values(data);
@@ -179,45 +179,103 @@ export default class List extends Component {
   }
 
   onChangeCheck() {
-       this.setState({ checked: !this.state.checked})
-     }
+    this.setState({ checked: !this.state.checked })
+  }
 
-listM = () => {
-const array= this.state.items.map((item,index) =>{
-   console.log(index);
-   console.log(item);
-   return (item
-   );
-});
-return array.map((element,index)=> {
-   console.log(element);
-   console.log(index);
-   return (
-     <View style={{ margin: 10 }}>
-      <Text style = {styles.text}>{element.name}</Text>
-       <CheckBox 
-       
+  listM = () => {
+    this.state.num = 0;
+    const array = this.state.items.map((item, index) => {
+      console.log(index);
+      console.log(item);
+      return (item
+      );
+    });
+
+
+    return array.map((element, index) => {
+      console.log(element);
+      console.log(element.items[0].name);
+      console.log(index);
+      return (
+        <View style={{ margin: 10 }}>
+          <Text style={styles.text}>{element.name}{"  "}{element.date}</Text>
+
+
+          {element.items.map((info, index) => {
+            console.log("items");
+            console.log(element);
+            console.log(info.name);
+            console.log(index);
+            return (
+              <View>
+                <Collapse>
+                  <CollapseHeader>
+                    <Text style={styles.headercollapse}  >{"Item: "}{info.name}</Text>
+
+                  </CollapseHeader>
+
+                  <CollapseBody>
+                    <Text style={styles.detailInput}  >{"Quantity: "}{info.quantity}</Text>
+                    <Text style={styles.detailInput}  >{"Price: "}{info.price}</Text>
+                    <Text style={styles.detailInput}  >{"Notes: "}{info.notes}</Text>
+
+                  </CollapseBody>
+                </Collapse>
+              </View>
+            );
+          })
+          }
+
+          {/* <CheckBox
+
             checked={this.state.checked}
             onPress={() => this.onChangeCheck()}
-          />
-     </View>
-  );
-});
-};
- render() {
-   return <View style = {styles.container}>{this.listM()}</View>;
- }
+          /> */}
+        </View>
+      );
+    });
+  };
+  // listitem = () => {
+  //    const itemarray = this.state.items.map((arrayitem, index) => {
+  //     console.log("itemsarray");
+  //     console.log(arrayitem.items[index]);
+  //     return (arrayitem.items[index]);
+  //   });
+
+
+  render() {
+    return <View style={styles.container}>{this.listM()}</View>;
+  };
 }
 
-const styles = StyleSheet.create ({
-   container: {
-      padding: 10,
-      marginTop: 3,
-      backgroundColor: '#d9f9b1',
-      alignItems: 'center',
-   },
-   text: {
-      color: '#4f603c',
-      fontSize: 20,
-   }
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+    marginTop: 3,
+    backgroundColor: '#d9f9b1',
+    alignItems: 'center',
+  },
+  text: {
+    color: '#4f603c',
+    fontSize: 20,
+  },
+  detailInput: {
+    height: 40,
+    padding: 2,
+    marginLeft: 15,
+    marginRight: 5,
+    fontSize: 13,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius: 8,
+    color: 'blue',
+  },
+  headercollapse: {
+    height: 40,
+    padding: 2,
+    marginLeft: 15,
+    marginRight: 5,
+    fontSize: 18,
+    color: 'red',
+  },
 })
