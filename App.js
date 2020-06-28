@@ -12,7 +12,7 @@ import Signup from './src/screens/Signup';
 import LoadingScreen from './src/screens/LoadingScreen';
 //import CreateList from './src/sreens/CreateList';
 import AddList from './src/screens/AddList';
-
+import ViewListDetails from './src/screens/ViewListDetails';
 const App = () => {
   const AppNavigator = createStackNavigator({
     Home,
@@ -22,6 +22,7 @@ const App = () => {
     Signup,
     LoadingScreen,
     AddList,
+    ViewListDetails,
   },
   {
     initialRouteName: 'Login',
@@ -36,23 +37,6 @@ const App = () => {
 
 export default App;
 
-// const AppNavigator = createStackNavigator(
-//   {
-//     Home,
-//     AddItem,
-//     List,
-//   },
-//   {
-//     initialRouteName: 'Home',
-//   }
-// );
 
-// const AppContainer = createAppContainer(AppNavigator);
-
-// export default class App extends Component {
-//   render() {
-//     return <AppContainer />;
-//   }
-// }
 
 
