@@ -166,6 +166,7 @@ export default class List extends Component {
   state = {
     items: [],
     checked: false,
+
   };
 
   componentDidMount() {
@@ -181,6 +182,7 @@ export default class List extends Component {
   onChangeCheck() {
     this.setState({ checked: !this.state.checked })
   }
+
 
   listM = () => {
     this.state.num = 0;

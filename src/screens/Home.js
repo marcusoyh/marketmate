@@ -37,8 +37,6 @@ const Home = ({ navigation }) => {
     } catch (err) {
       console.log(err.message);
     }
-
-
   };
 
   const handleLogout = () => {
