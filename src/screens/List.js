@@ -213,7 +213,6 @@ export default class List extends Component {
                 <Collapse>
                   <CollapseHeader>
                     <Text style={styles.headercollapse}  >{"Item: "}{info.name}</Text>
-
                   </CollapseHeader>
 
                   <CollapseBody>
