@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, StyleSheet, CheckBox, TextInput, Button} from 'react-native';
+import { ScrollView, View, Text, StyleSheet, CheckBox, Alert, Button} from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 
 import { db } from '../config';
@@ -16,11 +16,42 @@ export default class List extends Component {
     const uid = firebase.auth().currentUser.uid;
     let itemsRef = db.ref('/' + uid + '/lists');
     itemsRef.on('value', snapshot => {
+      snapshot.forEach((child) =>{console.log("childkey" + child.key);})
       let data = snapshot.val();
       let items = Object.values(data);
       this.setState({ items });
     });
   }
+
+  openTwoButtonAlert=(item,list)=>{
+    Alert.alert(
+      'Delete Item',
+      'Are you sure?',
+      [
+        {text: 'Yes', onPress: () => this.deleteItem(item,list)},
+        {text: 'No', onPress: () => console.log('No item was removed'), style: 'cancel'},
+      ],
+      { 
+        cancelable: true 
+      }
+    );
+  }
+
+    deleteItem(item,list) {
+      const uid = firebase.auth().currentUser.uid;
+
+        let itemsRef = db.ref('/' + uid + '/lists');
+        const childkey = [];
+    itemsRef.on('value', snapshot => {
+      snapshot.forEach((child) =>{ childkey.push(child.key);
+      })
+    });
+    console.log("check childkey" + childkey);
+
+    console.log('/' + uid + '/lists' + '/' + childkey[list] + '/items/'+item);
+    db.ref('/' + uid + '/lists' + '/' + childkey[list] + '/items/'+item).remove();
+    console.log("item is removed");
+    }
 
   onChangeCheck() {
          this.setState({ checked: !this.state.checked})
@@ -29,9 +60,10 @@ export default class List extends Component {
   listM = () => {
 
 console.log("PROPS " + this.props.navigation.state.params.number);
-     return this.state.items.map((item, index) => {
-        if (index == this.props.navigation.state.params.number) {
+     return this.state.items.map((item, num) => {
+        if (num == this.props.navigation.state.params.number) {
             console.log("COMPRE INDEX" + item.name);
+           
             return ( 
         
             <View style={{ margin: 10 }}>
@@ -39,17 +71,26 @@ console.log("PROPS " + this.props.navigation.state.params.number);
             <Text style={styles.text}>{item.name}</Text>
             <Text style={styles.text}>{item.date}</Text>
         
-       
+            
           {item.items.map((info, index) => {
+          
               console.log("items" + info.name);
+              
             return (
               <View>
                 <Collapse>
                   <CollapseHeader>
             <Text style={styles.headercollapse}  >{"Item "}{index+1 + ": "}{info.name}</Text> 
+            
             <CheckBox
             checked={this.state.checked}
             onPress={() => this.onChangeCheck()}/>
+            <Button
+            title='Delete'
+            
+            onPress={() =>this.openTwoButtonAlert(index, num)}
+            color="#E37399"
+          />
                   </CollapseHeader>
 
                   <CollapseBody>  
@@ -63,7 +104,9 @@ console.log("PROPS " + this.props.navigation.state.params.number);
             );
         })}
     </View>
+    
             )}
+      
         
     });
     

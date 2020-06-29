@@ -39,8 +39,15 @@ export default class List extends Component {
 
     return array.map((element, index) => {
       console.log(element);
-      console.log(element.items[0].name);
       console.log(index);
+      if(!element.items){
+        return(
+        <View>
+               <Text style={styles.text}>{element.name}</Text>
+           <Text style={styles.text}>{element.date}</Text>
+          </View>
+        )
+      }else{
       return (
         <View style={{ margin: 10 }}>
           <Collapse>
@@ -61,21 +68,11 @@ export default class List extends Component {
             console.log(element);
             console.log(info.name);
             console.log(index);
+           
             return (
+              
               <View>
-                {/* <Collapse>
-                  <CollapseHeader>
-                    {/* <Text style={styles.headercollapse}  >{"Item: "}{info.name}</Text> */}
-                   
-                  {/* </CollapseHeader>
-
-                  <CollapseBody>  */}
-                    {/* <Text style={styles.detailInput}  >{"Quantity: "}{info.quantity}</Text>
-                    <Text style={styles.detailInput}  >{"Price: "}{info.price}</Text>
-                    <Text style={styles.detailInput}  >{"Notes: "}{info.notes}</Text> */}
-                    <Text style={styles.headercollapse}  >{"Item: "}{info.name}</Text>
-                  {/* </CollapseBody> */}
-                {/* </Collapse> */}
+                    <Text style={styles.headercollapse}  >{"Item "}{index+1 + ": "}{info.name}</Text>
               </View>
             );
             
@@ -85,7 +82,7 @@ export default class List extends Component {
           </Collapse> 
 
         </View>
-      );
+        )}
     });
   };
 
