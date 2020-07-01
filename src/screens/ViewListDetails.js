@@ -10,10 +10,11 @@ export default class List extends Component {
   state = {
     items: [],
     checked: false,
-    additems: [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []],
+    additems: [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
     listname: '',
     date: '',
     search: '',
+    text:'',
 
   };
 
@@ -58,10 +59,19 @@ export default class List extends Component {
     });
 
 
-    console.log('/' + uid + '/lists' + '/' + childkey[list] + '/items/' + item);
+    // console.log('/' + uid + '/lists' + '/' + childkey[list] + '/items/' + item);
     db.ref('/' + uid + '/lists' + '/' + childkey[list] + '/items/' + item).remove();
-    deletelist.splice(item);
+    var newArray = this.state.items[list].items.filter(value => Object.keys(value).length !== 0);
+
+    db.ref('/' + uid + '/lists' + '/' + childkey[list]).set({
+      items:newArray,
+      name: this.state.listname,
+      date: this.state.date
+
+    });
     console.log("item is removed");
+    
+   
   }
 
   onChangeCheck() {
@@ -105,12 +115,13 @@ export default class List extends Component {
 
     });
     Alert.alert('Item added');
-    this.setState(this.state.additems);
+     this.setState(this.state.additems);
+     this.setState(this.state.items);
+
   }
 
 
   listM = () => {
-
 
     return this.state.items.map((item, num) => {
       if (num == this.props.navigation.state.params.number && item.items) {
@@ -118,7 +129,7 @@ export default class List extends Component {
         this.state.date = item.date;
         const itemList = item.items.length;
         //index for item to add in the array 
-        console.log(itemList + "itemList");
+         console.log(itemList + " number to add next");
         const indexItem = itemList;
         const deletelist = item.items;
         return (
@@ -151,13 +162,14 @@ export default class List extends Component {
             <Text style={styles.itemheader}  >{"Items :"}</Text>
             {item.items.map((info, index) => {
 
-              console.log(this.state.additems);
+              // console.log(this.state.additems);
+              console.log("numbering" + index)
               this.state.additems[index]['name'] = info.name;
               this.state.additems[index]['quantity'] = info.quantity;
               this.state.additems[index]['price'] = info.price;
               this.state.additems[index]['notes'] = info.notes;
 
-              console.log(this.state.additems[index]['name'] + "additem list");
+              // console.log(this.state.additems[index]['name'] + "additem list");
 
               return (
                 <View >
@@ -171,7 +183,7 @@ export default class List extends Component {
                         onPress={() => this.onChangeCheck()} />
                         </View>
                     <View style={{marginLeft:20}, {marginRight:20}}>
-                      <Text style={styles.headercollapse}  >{index +": "}{info.name}</Text>
+                      <Text style={styles.headercollapse}  >{index+1 +": "}{info.name}</Text>
                     </View>
                    
                         <View style={styles.deleteButton}>

@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { ScrollView, View, Text, StyleSheet, Alert, TextInput, Button,TouchableHighlight} from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Alert, TextInput, Button, TouchableHighlight } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 
 import { db } from '../config';
@@ -11,7 +11,7 @@ export default class List extends Component {
   state = {
     items: [],
     checked: false,
-    additems:[],
+    additems: [],
 
   };
 
@@ -28,7 +28,7 @@ export default class List extends Component {
     });
   }
 
-  
+
   listM = () => {
     const { navigate } = this.props.navigation;
     const array = this.state.items.map((item, index) => {
@@ -38,59 +38,55 @@ export default class List extends Component {
 
 
     return array.map((element, index) => {
-      console.log(element);
-      console.log(index);
-      if(!element.items){
-        
-        return(
-          
-        <View>
-               <Text style={styles.text}>{element.name}</Text>
-           <Text style={styles.text}>{element.date}</Text>
-           <Button
-        title="Details"
-        color="green"
-        onPress={() => navigate('ViewListDetails',{number: index})}
-      />
+    
+      if (!element.items) {
+
+        return (
+
+          <View>
+            <Text style={styles.text}>{element.name}</Text>
+            <Text style={styles.text}>{element.date}</Text>
+            <Button
+              title="Details"
+              color="green"
+              onPress={() => navigate('ViewListDetails', { number: index })}
+            />
           </View>
         )
-      }else{
-      return (
+      } else {
         
-        <View style={{ margin: 10 }}>
-          <Collapse>
-          <CollapseHeader>
-         
-           <Text style={styles.text}>{element.name}</Text>
-           <Text style={styles.text}>{element.date}</Text>
-       
-          <Button
-        title="Details"
-        color="green"
-        onPress={() => navigate('ViewListDetails',{number: index})}
-      />
-          </CollapseHeader>
-          <CollapseBody>
-          {element.items.map((info, index) => {
-            console.log("items");
-            console.log(element);
-            console.log(info.name);
-            console.log(index);
-           
-            return (
-              
-              <View>
-                    <Text style={styles.headercollapse}  >{"Item: "}{info.name}</Text>
-              </View>
-            );
-            
-          })
-          }
-          </CollapseBody>
-          </Collapse> 
+        return (
+               
+          <View style={{ margin: 10 }}>
+            <Collapse>
+              <CollapseHeader>
 
-        </View>
-        )}
+                <Text style={styles.text}>{element.name}</Text>
+                <Text style={styles.text}>{element.date}</Text>
+
+                <Button
+                  title="Details"
+                  color="green"
+                  onPress={() => navigate('ViewListDetails', { number: index })}
+                />
+              </CollapseHeader>
+              <CollapseBody>
+                {element.items.map((info, index) => {
+                  return (
+
+                    <View>
+                      <Text style={styles.headercollapse}  >{"Item: "}{info.name}</Text>
+                    </View>
+                  );
+
+                })
+                }
+              </CollapseBody>
+            </Collapse>
+
+          </View>
+        )
+      }
     });
   };
 
@@ -141,15 +137,15 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderRadius: 8,
     color: 'white',
-},
-createListButtonText: {
+  },
+  createListButtonText: {
     fontSize: 18,
     color: '#8fbc8f',
     alignSelf: 'center',
-},
-addItemButtonText: {
+  },
+  addItemButtonText: {
     fontSize: 18,
     color: '#111',
     alignSelf: 'center',
-},
+  },
 })
