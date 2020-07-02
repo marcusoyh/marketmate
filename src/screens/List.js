@@ -11,7 +11,7 @@ export default class List extends Component {
   state = {
     items: [],
     checked: false,
-    additems: [],
+    deletelist: [],
 
   };
 
@@ -25,7 +25,40 @@ export default class List extends Component {
     });
   }
 
+  openTwoButtonAlert = (list) => {
+    Alert.alert(
+      'Delete List',
+      'Are you sure?',
+      [
+        { text: 'Yes', onPress: () => this.deleteList(list) },
+        { text: 'No', onPress: () => console.log('No list was removed'), style: 'cancel' },
+      ],
+      {
+        cancelable: true
+      }
+    );
+  }
 
+  deleteList(list) {
+    const uid = firebase.auth().currentUser.uid;
+
+    let itemsRef = db.ref('/' + uid + '/lists');
+    const childkey = [];
+    itemsRef.on('value', snapshot => {
+      snapshot.forEach((child) => {
+        childkey.push(child.key);
+      })
+    });
+
+
+    // console.log('/' + uid + '/lists' + '/' + childkey[list] + '/items/' + item);
+    db.ref('/' + uid + '/lists' + '/' + childkey[list]).remove();
+
+
+    console.log("List is removed");
+
+
+  }
   listM = () => {
     const { navigate } = this.props.navigation;
     const array = this.state.items.map((item, index) => {
@@ -55,6 +88,14 @@ export default class List extends Component {
               onPress={() => navigate('ViewListDetails', { number: index })}
             />
             </View>
+            <View style={styles.deleteButton}>
+              <Button
+                title='Delete'
+
+                onPress={() => this.openTwoButtonAlert(index)}
+                color="#bc8f8f"
+              />
+              </View>
             </View>
             </CollapseHeader>
             <CollapseBody>
@@ -82,6 +123,15 @@ export default class List extends Component {
                   onPress={() => navigate('ViewListDetails', { number: index })}
                 />
                 </View>
+                <View style={styles.deleteButton}>
+
+                  <Button
+                    title='Delete'
+
+                    onPress={() => this.openTwoButtonAlert(index)}
+                    color="#bc8f8f"
+                  />
+                  </View>
              
                 </View>
               </CollapseHeader>
@@ -187,5 +237,11 @@ const styles = StyleSheet.create({
     width:80,
     alignSelf:'center',
   },
+  deleteButton: {
+    marginTop:20,
+    marginLeft:20,
+     width:80,
+     alignSelf:'center',
+   },
 
 })
