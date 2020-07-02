@@ -40,39 +40,58 @@ export default class List extends Component {
 
         return (
 
-          <View>
+          <View style={styles.section}>
+            <Collapse>
+           <CollapseHeader>
+           <View style={{flexDirection:"row"}} >
+             <View>
             <Text style={styles.text}>{element.name}</Text>
-            <Text style={styles.text}>{element.date}</Text>
+            <Text style={styles.textdate}>{element.date}</Text>
+            </View>
+            <View style={styles.detailsButton}>
             <Button
               title="Details"
-              color="green"
+              color="#bc8f8f"
               onPress={() => navigate('ViewListDetails', { number: index })}
             />
+            </View>
+            </View>
+            </CollapseHeader>
+            <CollapseBody>
+              <Text style={styles.itemheader}  >{"No items in the list"}</Text>
+              </CollapseBody>
+            </Collapse>
           </View>
         )
       } else {
         
         return (
-               
-          <View style={{ margin: 10 }}>
+              
+          <View style={styles.section}>
             <Collapse>
               <CollapseHeader>
-
+              <View style={{flexDirection:"row"}} >
+                <View>
                 <Text style={styles.text}>{element.name}</Text>
-                <Text style={styles.text}>{element.date}</Text>
-
+                <Text style={styles.textdate}>{element.date}</Text>
+                </View>
+                <View style={styles.detailsButton}>
                 <Button
                   title="Details"
-                  color="green"
+                  color="#bc8f8f"
                   onPress={() => navigate('ViewListDetails', { number: index })}
                 />
+                </View>
+             
+                </View>
               </CollapseHeader>
               <CollapseBody>
+              <Text style={styles.itemheader}  >{"Items :"}</Text>
                 {element.items.map((info, index) => {
                   return (
-
+                    
                     <View>
-                      <Text style={styles.headercollapse}  >{"Item: "}{info.name}</Text>
+                      <Text style={styles.headercollapse}  >{index+1 +": "}{info.name}</Text>
                     </View>
                   );
 
@@ -82,6 +101,7 @@ export default class List extends Component {
             </Collapse>
 
           </View>
+        
         )
       }
     });
@@ -98,51 +118,74 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     marginTop: 3,
-    backgroundColor: '#d9f9b1',
-    alignItems: 'center',
+    // backgroundColor: '#d9f9b1',
+    // alignItems: 'center',
+  }, collapseHeader: {
+    width: '100%',
+    padding: 5,
+    marginTop: 10,
+    marginLeft: 5,
+    marginRight: 5,
+    backgroundColor: '#fff0f5',
+
+  },
+  section: {
+    padding: 10,
+    marginTop: 3,
+    borderBottomColor: '#bc8f8f',
+    borderBottomWidth: 1,
   },
   text: {
-    color: '#4f603c',
+    color: '#bc8f8f',
+    fontSize: 32,
+    // textAlign: 'center',
+    fontWeight: 'bold'
+  }, 
+  textdate: {
+    color: '#bc8f8f',
     fontSize: 20,
+    // textAlign: 'center',
+  
+  },
+  itemheader: {
+    marginTop: 10,
+    marginLeft: 10,
+    color: '#bc8f8f',
+    fontSize: 26,
+    textAlign:'center',
+  
   },
   detailInput: {
-    height: 40,
-    padding: 2,
-    marginLeft: 15,
+    // height: 30,
+    padding: 5,
+    marginTop: 10,
+    marginLeft: 5,
     marginRight: 5,
-    fontSize: 13,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius: 8,
-    color: 'blue',
+    fontSize: 18,
+     borderWidth: 2,
+    borderColor: '#bc8f8f',
+    borderRadius: 6,
+    color: 'black',
+    width: 250,
+    
   },
   headercollapse: {
-    height: 40,
-    padding: 2,
-    marginLeft: 15,
-    marginRight: 5,
-    fontSize: 18,
-    color: 'red',
-  },
-  itemNameInput: {
-    height: 40,
-    padding: 2,
-    marginLeft: 15,
-    marginRight: 5,
-    fontSize: 23,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius: 8,
-    color: 'white',
-  },
-  createListButtonText: {
-    fontSize: 18,
-    color: '#8fbc8f',
-    alignSelf: 'center',
-  },
-  addItemButtonText: {
+    fontSize: 22,
+    color: '#cd5c5c',
+    textAlign:'center',
+    
+  
+  }, addItemButtonText: {
     fontSize: 18,
     color: '#111',
     alignSelf: 'center',
+    backgroundColor: '#fff0f5',
   },
+  detailsButton: {
+   marginTop:20,
+   marginLeft:20,
+    width:80,
+    alignSelf:'center',
+  },
+
 })
