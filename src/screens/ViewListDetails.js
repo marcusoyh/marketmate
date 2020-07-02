@@ -292,7 +292,7 @@ export default class List extends Component {
                         </View>
                         <View>
                           {/* <Text style={styles.detailInput}  >{info.notes}</Text> */}
-                          <TextInput style={styles.detailInput} placeholder={info.notes} onChangeText={(val) => this.inputValueUpdate(val, 'notes', indexItem)} />
+                          <TextInput style={styles.detailInput} placeholder={info.notes} onChangeText={(val) => this.inputValueUpdate(val, 'notes', index)} />
                         </View>
                       </View>
 
