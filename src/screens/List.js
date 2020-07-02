@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { ScrollView, View, Text, StyleSheet, Alert, TextInput, Button, TouchableHighlight } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Alert, TextInput, Button, DatePicker } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 
 import { db } from '../config';
@@ -12,7 +12,8 @@ export default class List extends Component {
     items: [],
     checked: false,
     deletelist: [],
-
+    listname:'',
+    date:'',
   };
 
   componentDidMount() {
@@ -59,20 +60,25 @@ export default class List extends Component {
 
 
   }
+
+
   listM = () => {
     const { navigate } = this.props.navigation;
     const array = this.state.items.map((item, index) => {
 
       return (item);
     });
-
+    
 
     return array.map((element, index) => {
-    
+     
+      
+      
       if (!element.items) {
 
         return (
-
+      
+       
           <View style={styles.section}>
             <Collapse>
            <CollapseHeader>
@@ -103,11 +109,13 @@ export default class List extends Component {
               </CollapseBody>
             </Collapse>
           </View>
+        
+          
         )
       } else {
         
         return (
-              
+         
           <View style={styles.section}>
             <Collapse>
               <CollapseHeader>
@@ -152,6 +160,8 @@ export default class List extends Component {
 
           </View>
         
+         
+        
         )
       }
     });
@@ -160,7 +170,20 @@ export default class List extends Component {
 
 
   render() {
-    return <ScrollView><View style={styles.container}>{this.listM()}</View></ScrollView>;
+    const { navigate } = this.props.navigation;
+    return <ScrollView>
+      <View style={styles.addButton}>
+        <Button
+          onPress={() => navigate('AddList')}
+          title="Add List"
+          color="#d2b48c"
+          
+          
+        />
+      </View>
+      <View style={styles.container}>
+      {this.listM()}
+      </View></ScrollView>;
   };
 }
 
@@ -184,15 +207,22 @@ const styles = StyleSheet.create({
     marginTop: 3,
     borderBottomColor: '#bc8f8f',
     borderBottomWidth: 1,
+  },  
+    sectionadd: {
+    padding: 10,
+    marginTop: 3,
+    // borderBottomColor: '#bc8f8f',
+    // borderBottomWidth: 1,
+    backgroundColor:'#ffe4c4'
   },
   text: {
-    color: '#bc8f8f',
+    color: '#a52a2a',
     fontSize: 32,
     // textAlign: 'center',
     fontWeight: 'bold'
   }, 
   textdate: {
-    color: '#bc8f8f',
+    color: '#a52a2a',
     fontSize: 20,
     // textAlign: 'center',
   
@@ -200,7 +230,7 @@ const styles = StyleSheet.create({
   itemheader: {
     marginTop: 10,
     marginLeft: 10,
-    color: '#bc8f8f',
+    color: '#a52a2a',
     fontSize: 26,
     textAlign:'center',
   
@@ -243,5 +273,22 @@ const styles = StyleSheet.create({
      width:80,
      alignSelf:'center',
    },
+   additemstyle: {
+    marginTop: 10,
+    color: '#bc8f8f',
+    fontSize: 26,
+    textAlign: 'center',
+  },
+  submitButton: {
+    marginTop: 10,
+    width: 150,
+    alignSelf: 'center',
+  },
+  addButton: {
+    marginTop: 10,
+    width: 250,
+    alignSelf: 'center',
+    
+  },
 
 })

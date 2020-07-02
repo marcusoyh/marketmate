@@ -457,13 +457,13 @@ const styles = StyleSheet.create({
 
   },
   text: {
-    color: '#bc8f8f',
+    color: '#a52a2a',
     fontSize: 32,
     textAlign: 'center',
     fontWeight: 'bold'
   },
   textdate: {
-    color: '#bc8f8f',
+    color: '#a52a2a',
     fontSize: 20,
     textAlign: 'center',
 
@@ -471,7 +471,7 @@ const styles = StyleSheet.create({
   itemheader: {
     marginTop: 10,
     marginLeft: 10,
-    color: '#bc8f8f',
+    color: '#a52a2a',
     fontSize: 26,
 
   },
