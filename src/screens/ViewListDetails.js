@@ -90,6 +90,32 @@ export default class List extends Component {
     this.state.additems[index][prop] = val;
   }
 
+  inputValueUpdateList(val) {
+    // this.setState({listname:val});
+    this.state.listname = val;  
+  }
+
+  editListName=(num, items)=>{
+    const uid = firebase.auth().currentUser.uid;
+    let itemsRef = db.ref('/' + uid + '/lists');
+    const childkey = [];
+    itemsRef.on('value', snapshot => {
+      snapshot.forEach((child) => {
+        childkey.push(child.key);
+      })
+    });
+    console.log('listname' + this.state.listname);
+    db.ref('/' + uid + '/lists' + '/' + childkey[num]).set({
+      items: items,
+      name: this.state.listname,
+      date: this.state.date
+
+    });
+    console.log("list is updated")
+    this.setState({listname:''});
+    Alert.alert('List name is updated!');
+  }
+
 
   addItem = (list) => {
 
@@ -198,6 +224,22 @@ export default class List extends Component {
                   <Button
                     title='Submit'
                     onPress={() => this.addItem(num)}
+                    color="#e9967a"
+                  />
+                </View>
+              </CollapseBody>
+            </Collapse>
+
+            <Collapse>
+              <CollapseHeader>
+                <Text style={styles.additemstyle}>Edit List Name </Text>
+              </CollapseHeader>
+              <CollapseBody>
+                <TextInput style={styles.detailInput} placeholder={item.name} onChangeText={(val) => this.inputValueUpdateList(val)} />
+                              <View style={styles.submitButton}>
+                  <Button
+                    title='Submit'
+                    onPress={() => this.editListName(num, deletelist)}
                     color="#e9967a"
                   />
                 </View>
