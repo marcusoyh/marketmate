@@ -40,6 +40,7 @@ const AddList = () => {
         console.log(e.nativeEvent.text);
         const newItems = items;
         newItems[index]["name"] = e.nativeEvent.text;
+        newItems[index]["check"] = false;
         //newItems[index] = { 'name': e.nativeEvent.text };
         //newItems[index][0]= e.nativeEvent.text;
         setItems(newItems);
