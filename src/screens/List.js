@@ -24,6 +24,7 @@ export default class List extends Component {
       let items = Object.values(data);
       this.setState({ items });
     });
+
   }
 
   openTwoButtonAlert = (list) => {
@@ -217,7 +218,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#a52a2a',
-    fontSize: 32,
+    fontSize: 28,
     // textAlign: 'center',
     fontWeight: 'bold'
   }, 

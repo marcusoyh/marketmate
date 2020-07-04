@@ -11,6 +11,7 @@ export default class List extends Component {
     items: [],
     checked: false,
     additems: [[], [], [], [], [], [], [], [], [], [], [], [], [], [], []],
+    // tempCheckValues:[],
     listname: '',
     date: '',
     search: '',
@@ -76,8 +77,36 @@ export default class List extends Component {
 
   }
 
-  onChangeCheck() {
-    this.setState({ checked: !this.state.checked })
+  onChangeCheck(num,index,itemslist){
+console.log("before" +this.state.checked);
+    if(this.state.checked==true){
+      this.state.checked=false;
+    this.setState({checked:false});
+    console.log("after 1" +this.state.checked);
+  }else{
+    this.state.checked=true;
+    this.setState({checked:true});
+    console.log("after 2" +this.state.checked);
+  }
+
+  
+  itemslist[index]['check']= this.state.checked;
+  const uid = firebase.auth().currentUser.uid;
+  let itemsRef = db.ref('/' + uid + '/lists');
+  const childkey = [];
+  itemsRef.on('value', snapshot => {
+    snapshot.forEach((child) => {
+      childkey.push(child.key);
+    })
+  });
+  console.log('listname' + this.state.listname);
+  db.ref('/' + uid + '/lists' + '/' + childkey[num]).set({
+    items: itemslist,
+    name: this.state.listname,
+    date: this.state.date
+
+  });
+  this.setState({checked:false});
   }
 
   inputValueUpdate(val, prop, index) {
@@ -88,6 +117,7 @@ export default class List extends Component {
     //add new item to array 
     // newItems[index][prop] = val;
     this.state.additems[index][prop] = val;
+    this.state.additems[index]['check'] = false;
   }
 
   inputValueUpdateList(val) {
@@ -168,7 +198,8 @@ export default class List extends Component {
     db.ref('/' + uid + '/lists' + '/' + childkey[list]).set({
       items: this.state.additems,
       name: this.state.listname,
-      date: this.state.date
+      date: this.state.date,
+     
 
     });
     Alert.alert('Item Edited Successfully');
@@ -203,6 +234,7 @@ export default class List extends Component {
         console.log(itemList + " number to add next");
         const indexItem = itemList;
         const deletelist = item.items;
+        
         return (
 
           <View style={{ margin: 10 }}>
@@ -248,18 +280,18 @@ export default class List extends Component {
 
             <Text style={styles.itemheader}  >{"Items :"}</Text>
             {item.items.map((info, index) => {
-
-              // console.log(this.state.additems);
+              this.state.checked=info.check;
+               console.log("checked" +this.state.checked);
               console.log("numbering" + index + "edititem" + this.state.edititem)
               this.state.additems[index]['name'] = info.name;
               this.state.additems[index]['quantity'] = info.quantity;
               this.state.additems[index]['price'] = info.price;
               this.state.additems[index]['notes'] = info.notes;
-
+              this.state.additems[index]['check'] =info.check;
               // console.log(this.state.additems[index]['name'] + "additem list");
               if(this.state.edititem == true && this.state.editindex==index){
-                console.log("appear1");
-                
+                console.log("appear1" );
+         
               return (
                 
                 <View >
@@ -268,9 +300,12 @@ export default class List extends Component {
                     <CollapseHeader style={styles.collapseHeader}>
                       <View style={{ flexDirection: "row" }} >
                         <View style={{ marginRight: 20 }}>
-                          <CheckBox
-                            checked={this.state.checked}
-                            onPress={() => this.onChangeCheck()} />
+                        <CheckBox
+                            // check={this.state.checked[index]}
+                            // onPress={() => this.onChangeCheck(index)} />
+                             value={this.state.checked}
+                             onValueChange={()=>this.onChangeCheck(num,index,deletelist)} />
+                            {/*  onPress={()=>this.onChangeCheck(index)}/> */}
                         </View>
                         <View style={{ marginLeft: 20 }, { marginRight: 20 }}>
                           <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}</Text>
@@ -352,6 +387,7 @@ export default class List extends Component {
               );
             }else {
               console.log("appear2");
+              
               return (
                 
                 <View >
@@ -360,9 +396,11 @@ export default class List extends Component {
                     <CollapseHeader style={styles.collapseHeader}>
                       <View style={{ flexDirection: "row" }} >
                         <View style={{ marginRight: 20 }}>
-                          <CheckBox
-                            checked={this.state.checked}
-                            onPress={() => this.onChangeCheck()} />
+                        <CheckBox
+                             // check={this.state.checked[index]}
+                            // onPress={() => this.onChangeCheck(index)} />
+                            value={this.state.checked}
+                             onValueChange={()=>this.onChangeCheck(num,index,deletelist)} />
                         </View>
                         <View style={{ marginLeft: 20 }, { marginRight: 20 }}>
                           <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}</Text>
