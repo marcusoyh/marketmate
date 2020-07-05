@@ -256,7 +256,7 @@ console.log("before" +this.state.checked);
                   <Button
                     title='Submit'
                     onPress={() => this.addItem(num)}
-                    color="#e9967a"
+                    color="#bc8f8f"
                   />
                 </View>
               </CollapseBody>
@@ -272,7 +272,7 @@ console.log("before" +this.state.checked);
                   <Button
                     title='Submit'
                     onPress={() => this.editListName(num, deletelist)}
-                    color="#e9967a"
+                    color="#bc8f8f"
                   />
                 </View>
               </CollapseBody>
@@ -395,7 +395,7 @@ console.log("before" +this.state.checked);
                   <Button
                     title='Edit Item'
                     onPress={() => this.editItem(num)}
-                    color="#e9967a"
+                    color="#bc8f8f"
                   />
                 </View>
 
@@ -534,7 +534,7 @@ console.log("before" +this.state.checked);
               <Button
                 title='Submit'
                 onPress={() => this.addItem(num)}
-                color="#e9967a"
+                color="#bc8f8f"
               />
             </View>
           </View>
