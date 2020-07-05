@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { ScrollView, View, Text, StyleSheet, Alert, TextInput, Button, DatePicker } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Alert, Image, TextInput, Button, DatePicker, TouchableOpacity } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 
 import { db } from '../config';
@@ -12,8 +12,8 @@ export default class List extends Component {
     items: [],
     checked: false,
     deletelist: [],
-    listname:'',
-    date:'',
+    listname: '',
+    date: '',
   };
 
   componentDidMount() {
@@ -69,88 +69,133 @@ export default class List extends Component {
 
       return (item);
     });
-    
+
 
     return array.map((element, index) => {
-     
-      
-      
+
+
+
       if (!element.items) {
 
         return (
-      
-       
+
+
           <View style={styles.section}>
             <Collapse>
-           <CollapseHeader>
-           <View style={{flexDirection:"row"}} >
-             <View>
-            <Text style={styles.text}>{element.name}</Text>
-            <Text style={styles.textdate}>{element.date}</Text>
-            </View>
-            <View style={styles.detailsButton}>
+              <CollapseHeader>
+                <View style={{ flexDirection: "row", flex: 6 }} >
+                  <View style={{ flex: 5 }}>
+                    <Text style={styles.text}>{element.name}</Text>
+                    <Text style={styles.textdate}>{element.date}</Text>
+                  </View>
+                  {/* <View style={styles.detailsButton}>
             <Button
               title="Details"
               color="#bc8f8f"
               onPress={() => navigate('ViewListDetails', { number: index })}
             />
-            </View>
-            <View style={styles.deleteButton}>
+            </View> */}
+                  <View style={{ flex: 0.5 }}>
+                    <TouchableOpacity activeOpacity={0.5} onPress={() => navigate('ViewListDetails', { number: index })}
+
+                    >
+                      <Image
+                        source={require('./assets/details.png')}
+                        style={styles.detailsIconStyle}
+                      />
+
+
+                    </TouchableOpacity>
+                  </View>
+                  {/* <View style={styles.deleteButton}>
               <Button
                 title='Delete'
 
                 onPress={() => this.openTwoButtonAlert(index)}
                 color="#bc8f8f"
               />
-              </View>
-            </View>
-            </CollapseHeader>
-            <CollapseBody>
-              <Text style={styles.itemheader}  >{"No items in the list"}</Text>
-              </CollapseBody>
-            </Collapse>
-          </View>
-        
-          
-        )
-      } else {
-        
-        return (
-         
-          <View style={styles.section}>
-            <Collapse>
-              <CollapseHeader>
-              <View style={{flexDirection:"row"}} >
-                <View>
-                <Text style={styles.text}>{element.name}</Text>
-                <Text style={styles.textdate}>{element.date}</Text>
-                </View>
-                <View style={styles.detailsButton}>
-                <Button
-                  title="Details"
-                  color="#bc8f8f"
-                  onPress={() => navigate('ViewListDetails', { number: index })}
-                />
-                </View>
-                <View style={styles.deleteButton}>
+              </View> */}
+                  <View style={{ flex: 0.5 }}>
+                    <TouchableOpacity activeOpacity={0.5} onPress={() => this.openTwoButtonAlert(index)}
+                    >
+                      <Image
+                        source={require('./assets/dustbin.png')}
+                        style={styles.ImageIconStyle}
+                      />
 
-                  <Button
-                    title='Delete'
 
-                    onPress={() => this.openTwoButtonAlert(index)}
-                    color="#bc8f8f"
-                  />
+                    </TouchableOpacity>
                   </View>
-             
                 </View>
               </CollapseHeader>
               <CollapseBody>
-              <Text style={styles.itemheader}  >{"Items :"}</Text>
+                <Text style={styles.itemheader}  >{"No items in the list"}</Text>
+              </CollapseBody>
+            </Collapse>
+          </View>
+
+
+        )
+      } else {
+
+        return (
+
+          <View style={styles.section}>
+            <Collapse>
+              <CollapseHeader>
+                <View style={{ flexDirection: "row", flex: 6 }} >
+                  <View style={{ flex: 5 }}>
+                    <Text style={styles.text}>{element.name}</Text>
+                    <Text style={styles.textdate}>{element.date}</Text>
+                  </View>
+                  {/* <View style={styles.detailsButton}>
+            <Button
+              title="Details"
+              color="#bc8f8f"
+              onPress={() => navigate('ViewListDetails', { number: index })}
+            />
+            </View> */}
+                  <View style={{ flex: 0.5 }}>
+                    <TouchableOpacity activeOpacity={0.5} onPress={() => navigate('ViewListDetails', { number: index })}
+
+                    >
+                      <Image
+                        source={require('./assets/details.png')}
+                        style={styles.detailsIconStyle}
+                      />
+
+
+                    </TouchableOpacity>
+                  </View>
+                  {/* <View style={styles.deleteButton}>
+              <Button
+                title='Delete'
+
+                onPress={() => this.openTwoButtonAlert(index)}
+                color="#bc8f8f"
+              />
+              </View> */}
+                  <View style={{ flex: 0.5 }}>
+                    <TouchableOpacity activeOpacity={0.5} onPress={() => this.openTwoButtonAlert(index)}
+                    >
+                      <Image
+                        source={require('./assets/dustbin.png')}
+                        style={styles.ImageIconStyle}
+                      />
+
+
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+              </CollapseHeader>
+              <CollapseBody>
+                <Text style={styles.itemheader}  >{"Items :"}</Text>
                 {element.items.map((info, index) => {
                   return (
-                    
+
                     <View>
-                      <Text style={styles.headercollapse}  >{index+1 +": "}{info.name}</Text>
+                      <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}</Text>
                     </View>
                   );
 
@@ -160,9 +205,9 @@ export default class List extends Component {
             </Collapse>
 
           </View>
-        
-         
-        
+
+
+
         )
       }
     });
@@ -176,14 +221,14 @@ export default class List extends Component {
       <View style={styles.addButton}>
         <Button
           onPress={() => navigate('AddList')}
-          title="Add List"
-          color="#d2b48c"
-          
-          
+          title="Add New List"
+          color="#bc8f8f"
+
+
         />
       </View>
       <View style={styles.container}>
-      {this.listM()}
+        {this.listM()}
       </View></ScrollView>;
   };
 }
@@ -208,33 +253,33 @@ const styles = StyleSheet.create({
     marginTop: 3,
     borderBottomColor: '#bc8f8f',
     borderBottomWidth: 1,
-  },  
-    sectionadd: {
+  },
+  sectionadd: {
     padding: 10,
     marginTop: 3,
     // borderBottomColor: '#bc8f8f',
     // borderBottomWidth: 1,
-    backgroundColor:'#ffe4c4'
+    backgroundColor: '#ffe4c4'
   },
   text: {
     color: '#a52a2a',
     fontSize: 28,
     // textAlign: 'center',
     fontWeight: 'bold'
-  }, 
+  },
   textdate: {
     color: '#a52a2a',
     fontSize: 20,
     // textAlign: 'center',
-  
+
   },
   itemheader: {
     marginTop: 10,
     marginLeft: 10,
     color: '#a52a2a',
     fontSize: 26,
-    textAlign:'center',
-  
+    textAlign: 'center',
+
   },
   detailInput: {
     // height: 30,
@@ -243,19 +288,19 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     fontSize: 18,
-     borderWidth: 2,
+    borderWidth: 2,
     borderColor: '#bc8f8f',
     borderRadius: 6,
     color: 'black',
     width: 250,
-    
+
   },
   headercollapse: {
     fontSize: 22,
     color: '#cd5c5c',
-    textAlign:'center',
-    
-  
+    textAlign: 'center',
+
+
   }, addItemButtonText: {
     fontSize: 18,
     color: '#111',
@@ -263,18 +308,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff0f5',
   },
   detailsButton: {
-   marginTop:20,
-   marginLeft:20,
-    width:80,
-    alignSelf:'center',
+    marginTop: 20,
+    marginLeft: 20,
+    width: 80,
+    alignSelf: 'center',
   },
   deleteButton: {
-    marginTop:20,
-    marginLeft:20,
-     width:80,
-     alignSelf:'center',
-   },
-   additemstyle: {
+    marginTop: 20,
+    marginLeft: 20,
+    width: 80,
+    alignSelf: 'center',
+  },
+  additemstyle: {
     marginTop: 10,
     color: '#bc8f8f',
     fontSize: 26,
@@ -289,7 +334,25 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: 250,
     alignSelf: 'center',
-    
+
+  },
+  ImageIconStyle: {
+    padding: 10,
+    marginTop: 15,
+    height: 25,
+    width: 25,
+    resizeMode: 'stretch',
+
+
+  },
+  detailsIconStyle: {
+    padding: 10,
+    marginTop: 15,
+    height: 26,
+    width: 30,
+    resizeMode: 'stretch',
+
+
   },
 
 })
