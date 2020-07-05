@@ -85,7 +85,7 @@ export default class List extends Component {
               <CollapseHeader>
                 <View style={{ flexDirection: "row", flex: 6 }} >
                   <View style={{ flex: 5 }}>
-                    <Text style={styles.text}>{element.name}</Text>
+        <Text style={styles.text}>{element.name}{' ▼'}</Text>
                     <Text style={styles.textdate}>{element.date}</Text>
                   </View>
                   {/* <View style={styles.detailsButton}>
@@ -145,7 +145,7 @@ export default class List extends Component {
               <CollapseHeader>
                 <View style={{ flexDirection: "row", flex: 6 }} >
                   <View style={{ flex: 5 }}>
-                    <Text style={styles.text}>{element.name}</Text>
+                    <Text style={styles.text}>{element.name}{' ▼'}</Text>
                     <Text style={styles.textdate}>{element.date}</Text>
                   </View>
                   {/* <View style={styles.detailsButton}>

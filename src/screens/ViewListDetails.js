@@ -245,7 +245,7 @@ console.log("before" +this.state.checked);
 
             <Collapse>
               <CollapseHeader>
-                <Text style={styles.additemstyle}>Add Item</Text>
+                <Text style={styles.additemstyle}>Add Item ▼</Text>
               </CollapseHeader>
               <CollapseBody>
                 <TextInput style={styles.detailInput} placeholder="Name" onChangeText={(val) => this.inputValueUpdate(val, 'name', indexItem)} />
@@ -264,7 +264,7 @@ console.log("before" +this.state.checked);
 
             <Collapse>
               <CollapseHeader>
-                <Text style={styles.additemstyle}>Edit List Name </Text>
+                <Text style={styles.additemstyle}>Edit List Name ▼</Text>
               </CollapseHeader>
               <CollapseBody>
                 <TextInput style={styles.detailInput} placeholder={item.name} onChangeText={(val) => this.inputValueUpdateList(val)} />
@@ -307,7 +307,7 @@ console.log("before" +this.state.checked);
                              onValueChange={()=>this.onChangeCheck(num,index,deletelist)} />
                         </View>
                         <View style={{ marginLeft: 20 }, { marginRight: 20 }, {flex:4}}>
-                          <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}</Text>
+              <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}{' ▼'}</Text>
                         </View>
                       {/* </View> */}
                       {/* <View style={{ flexDirection: "row-reverse" }} > */}
@@ -421,7 +421,7 @@ console.log("before" +this.state.checked);
                              onValueChange={()=>this.onChangeCheck(num,index,deletelist)} />
                         </View>
                         <View style={{ marginLeft: 20 }, { marginRight: 20 }, {flex:4}}>
-                          <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}</Text>
+                          <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}{' ▼'}</Text>
                         </View>
                       {/* </View> */}
                       {/* <View style={{ flexDirection: "row-reverse" }} > */}
