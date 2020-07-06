@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, StyleSheet, CheckBox, Alert, Button, TouchableHighlight, TextInput } from 'react-native';
+import { ScrollView,Image, View, Text, StyleSheet, CheckBox, Alert, Button, TouchableOpacity, TextInput } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 
 import { db } from '../config';
@@ -245,7 +245,7 @@ console.log("before" +this.state.checked);
 
             <Collapse>
               <CollapseHeader>
-                <Text style={styles.additemstyle}>Add Item</Text>
+                <Text style={styles.additemstyle}>Add Item ▼</Text>
               </CollapseHeader>
               <CollapseBody>
                 <TextInput style={styles.detailInput} placeholder="Name" onChangeText={(val) => this.inputValueUpdate(val, 'name', indexItem)} />
@@ -256,7 +256,7 @@ console.log("before" +this.state.checked);
                   <Button
                     title='Submit'
                     onPress={() => this.addItem(num)}
-                    color="#e9967a"
+                    color="#bc8f8f"
                   />
                 </View>
               </CollapseBody>
@@ -264,7 +264,7 @@ console.log("before" +this.state.checked);
 
             <Collapse>
               <CollapseHeader>
-                <Text style={styles.additemstyle}>Edit List Name </Text>
+                <Text style={styles.additemstyle}>Edit List Name ▼</Text>
               </CollapseHeader>
               <CollapseBody>
                 <TextInput style={styles.detailInput} placeholder={item.name} onChangeText={(val) => this.inputValueUpdateList(val)} />
@@ -272,7 +272,7 @@ console.log("before" +this.state.checked);
                   <Button
                     title='Submit'
                     onPress={() => this.editListName(num, deletelist)}
-                    color="#e9967a"
+                    color="#bc8f8f"
                   />
                 </View>
               </CollapseBody>
@@ -297,37 +297,55 @@ console.log("before" +this.state.checked);
                 <View >
 
                   <Collapse>
-                    <CollapseHeader style={styles.collapseHeader}>
-                      <View style={{ flexDirection: "row" }} >
-                        <View style={{ marginRight: 20 }}>
+                  <CollapseHeader style={styles.collapseHeader}>
+                      <View style={{ flexDirection: "row",flex:6 }} >
+                        <View style={{ marginRight: 20}, {flex:1}}>
                         <CheckBox
-                            // check={this.state.checked[index]}
+                             // check={this.state.checked[index]}
                             // onPress={() => this.onChangeCheck(index)} />
-                             value={this.state.checked}
+                            value={this.state.checked}
                              onValueChange={()=>this.onChangeCheck(num,index,deletelist)} />
-                            {/*  onPress={()=>this.onChangeCheck(index)}/> */}
                         </View>
-                        <View style={{ marginLeft: 20 }, { marginRight: 20 }}>
-                          <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}</Text>
+                        <View style={{ marginLeft: 20 }, { marginRight: 20 }, {flex:4}}>
+              <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}{' ▼'}</Text>
                         </View>
+                      {/* </View> */}
+                      {/* <View style={{ flexDirection: "row-reverse" }} > */}
+                        <View style={{flex:0.5}}>
 
-                        <View style={styles.deleteButton}>
-
-                          <Button
+                          {/* <Button
                             title='Delete'
 
                             onPress={() => this.openTwoButtonAlert(index, num, deletelist)}
                             color="#bc8f8f"
-                          />
+                          /> */}
+                           <TouchableOpacity  activeOpacity={0.5} onPress={() => this.openTwoButtonAlert(index, num, deletelist)}
+> 
+                              <Image
+                              source={require('./assets/dustbin.png')}
+                              style={styles.ImageIconStyle}
+                              />
+                         
+                               
+                          </TouchableOpacity> 
                         </View>
-                        <View style={styles.deleteButton}>
+                        <View style={{flex:0.5}}>
 
-                          <Button
+                          {/* <Button
                             title='Edit'
 
                             onPress={() => this.onButtonPress(index)}
                             color="#bc8f8f"
-                          />
+                          /> */}
+                                 <TouchableOpacity  activeOpacity={0.5} onPress={() => this.onButtonPress(index)}
+> 
+                              <Image
+                              source={require('./assets/edit.png')}
+                              style={styles.ImageIconStyle}
+                              />
+                         
+                               
+                          </TouchableOpacity> 
                           </View>
                         
                       </View>
@@ -377,7 +395,7 @@ console.log("before" +this.state.checked);
                   <Button
                     title='Edit Item'
                     onPress={() => this.editItem(num)}
-                    color="#e9967a"
+                    color="#bc8f8f"
                   />
                 </View>
 
@@ -394,35 +412,54 @@ console.log("before" +this.state.checked);
 
                   <Collapse>
                     <CollapseHeader style={styles.collapseHeader}>
-                      <View style={{ flexDirection: "row" }} >
-                        <View style={{ marginRight: 20 }}>
+                      <View style={{ flexDirection: "row",flex:6 }} >
+                        <View style={{ marginRight: 20}, {flex:1}}>
                         <CheckBox
                              // check={this.state.checked[index]}
                             // onPress={() => this.onChangeCheck(index)} />
                             value={this.state.checked}
                              onValueChange={()=>this.onChangeCheck(num,index,deletelist)} />
                         </View>
-                        <View style={{ marginLeft: 20 }, { marginRight: 20 }}>
-                          <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}</Text>
+                        <View style={{ marginLeft: 20 }, { marginRight: 20 }, {flex:4}}>
+                          <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}{' ▼'}</Text>
                         </View>
+                      {/* </View> */}
+                      {/* <View style={{ flexDirection: "row-reverse" }} > */}
+                        <View style={{flex:0.5}}>
 
-                        <View style={styles.deleteButton}>
-
-                          <Button
+                          {/* <Button
                             title='Delete'
 
                             onPress={() => this.openTwoButtonAlert(index, num, deletelist)}
                             color="#bc8f8f"
-                          />
+                          /> */}
+                           <TouchableOpacity  activeOpacity={0.5} onPress={() => this.openTwoButtonAlert(index, num, deletelist)}
+> 
+                              <Image
+                              source={require('./assets/dustbin.png')}
+                              style={styles.ImageIconStyle}
+                              />
+                         
+                               
+                          </TouchableOpacity> 
                         </View>
-                        <View style={styles.deleteButton}>
+                        <View style={{flex:0.5}}>
 
-                          <Button
+                          {/* <Button
                             title='Edit'
 
                             onPress={() => this.onButtonPress(index)}
                             color="#bc8f8f"
-                          />
+                          /> */}
+                                 <TouchableOpacity  activeOpacity={0.5} onPress={() => this.onButtonPress(index)}
+> 
+                              <Image
+                              source={require('./assets/edit.png')}
+                              style={styles.ImageIconStyle}
+                              />
+                         
+                               
+                          </TouchableOpacity> 
                           </View>
                         
                       </View>
@@ -497,7 +534,7 @@ console.log("before" +this.state.checked);
               <Button
                 title='Submit'
                 onPress={() => this.addItem(num)}
-                color="#e9967a"
+                color="#bc8f8f"
               />
             </View>
           </View>
@@ -535,6 +572,15 @@ const styles = StyleSheet.create({
     marginRight: 5,
     backgroundColor: '#fff0f5',
 
+  },
+  ImageIconStyle: {
+    padding: 10,
+    margin: 5,
+    height: 25,
+    width: 25,
+    resizeMode: 'stretch',
+
+    
   },
   text: {
     color: '#a52a2a',
