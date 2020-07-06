@@ -4,7 +4,6 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import Home from './src/screens/Home';
 
-// we will use these two screens later in our AppNavigator
 import AddItem from './src/screens/AddItem';
 import List from './src/screens/List';
 import Login from './src/screens/Login';
@@ -13,6 +12,9 @@ import LoadingScreen from './src/screens/LoadingScreen';
 //import CreateList from './src/sreens/CreateList';
 import AddList from './src/screens/AddList';
 import ViewListDetails from './src/screens/ViewListDetails';
+
+import ViewCategories from './src/screens/ViewCategories';
+
 const App = () => {
   const AppNavigator = createStackNavigator({
     Home,
@@ -23,6 +25,7 @@ const App = () => {
     LoadingScreen,
     AddList,
     ViewListDetails,
+    ViewCategories,
   },
   {
     initialRouteName: 'Login',

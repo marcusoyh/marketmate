@@ -71,6 +71,11 @@ const Home = ({ navigation }) => {
         color="blue"
         onPress={() => navigation.navigate('AddList')}
       />
+      <Button
+        title="Category Management"
+        color="blue"
+        onPress={() => navigation.navigate('ViewCategories')}
+      />
     </View>
   );
 };
