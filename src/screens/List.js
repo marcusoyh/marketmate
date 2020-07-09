@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { ScrollView, View, Text, StyleSheet, Alert, Image, TextInput, Button, DatePicker, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Alert, Image, ImageBackground, Button, DatePicker, TouchableOpacity } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 
 import { db } from '../config';
@@ -85,7 +85,7 @@ export default class List extends Component {
               <CollapseHeader>
                 <View style={{ flexDirection: "row", flex: 6 }} >
                   <View style={{ flex: 5 }}>
-        <Text style={styles.text}>{element.name}{' ▼'}</Text>
+                    <Text style={styles.text}>{'🌿' + element.name}{' ▼'}</Text>
                     <Text style={styles.textdate}>{element.date}</Text>
                   </View>
                   {/* <View style={styles.detailsButton}>
@@ -145,7 +145,7 @@ export default class List extends Component {
               <CollapseHeader>
                 <View style={{ flexDirection: "row", flex: 6 }} >
                   <View style={{ flex: 5 }}>
-                    <Text style={styles.text}>{element.name}{' ▼'}</Text>
+                    <Text style={styles.text}>{'🌿' + element.name}{' ▼'}</Text>
                     <Text style={styles.textdate}>{element.date}</Text>
                   </View>
                   {/* <View style={styles.detailsButton}>
@@ -218,18 +218,30 @@ export default class List extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return <ScrollView>
-      <View style={styles.addButton}>
-        <Button
-          onPress={() => navigate('AddList')}
-          title="Add New List"
-          color="#bc8f8f"
+
+      <View style={{ flexDirection: "row", flex: 6 }} >
+        <View style={{ flex: 5.5 }}>
+          <Text style={styles.textHeading}>{'My Lists'}</Text>
+        </View>
+        <View style={styles.addButton, { flex: 0.5 }}>
+          <Button
+            onPress={() => navigate('AddList')}
+            title="✚"
+            color="#d2b48c"
 
 
-        />
+          />
+        </View>
       </View>
-      <View style={styles.container}>
-        {this.listM()}
-      </View></ScrollView>;
+      <View>
+        <View style={styles.container}>
+          {/* <ImageBackground source={require('./assets/logo.png')} style={styles.image}>
+          {this.listM()}
+        </ImageBackground> */}
+          {this.listM()}
+        </View>
+      </View>
+    </ScrollView>;
   };
 }
 
@@ -248,10 +260,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff0f5',
 
   },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+    opacity: .5,
+  },
   section: {
     padding: 10,
     marginTop: 3,
-    borderBottomColor: '#bc8f8f',
+    borderBottomColor: '#a0522d',
     borderBottomWidth: 1,
   },
   sectionadd: {
@@ -262,13 +280,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffe4c4'
   },
   text: {
-    color: '#a52a2a',
+    color: '#8b4513',
     fontSize: 28,
     // textAlign: 'center',
-    fontWeight: 'bold'
+    // fontWeight: 'bold'
+  }, textHeading: {
+    color: '#8b4513',
+    fontSize: 33,
+    marginLeft: 15,
+
+    // textAlign: 'center',
+    // fontWeight: 'bold'
   },
   textdate: {
-    color: '#a52a2a',
+    color: '#d2b48c',
     fontSize: 20,
     // textAlign: 'center',
 
@@ -276,9 +301,9 @@ const styles = StyleSheet.create({
   itemheader: {
     marginTop: 10,
     marginLeft: 10,
-    color: '#a52a2a',
+    color: '#8b4513',
     fontSize: 26,
-    textAlign: 'center',
+    // textAlign: 'center',
 
   },
   detailInput: {
@@ -297,9 +322,9 @@ const styles = StyleSheet.create({
   },
   headercollapse: {
     fontSize: 22,
-    color: '#cd5c5c',
-    textAlign: 'center',
-
+    color: 'black',
+    // textAlign: 'center',
+    marginLeft: 15,
 
   }, addItemButtonText: {
     fontSize: 18,
@@ -332,7 +357,9 @@ const styles = StyleSheet.create({
   },
   addButton: {
     marginTop: 10,
-    width: 250,
+    marginRight: 10,
+    width: 25,
+
     alignSelf: 'center',
 
   },

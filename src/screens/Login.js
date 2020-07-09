@@ -13,45 +13,46 @@ const Login = ({ navigation }) => {
 
     const handleLogin = () => {
         firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(() => navigation.navigate('Home'))
-        .catch(error => setErrorMessage(error.message));
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then(() => navigation.navigate('Home'))
+            .catch(error => setErrorMessage(error.message));
     };
 
     return (
         <View style={styles.container}>
-                <Text style={{ color: '#e93766', fontSize: 40 }}>Login</Text>
-                <Text style={{ color: 'red' }}>{errorMessage}</Text>
-                <TextInput
-                    style={styles.textInput}
-                    autoCapitalize="none"
-                    placeholder="Email"
-                    onChangeText={(e) => setEmail(e)}
-                    value={email}
-                />
-                <TextInput
-                    secureTextEntry
-                    style={styles.textInput}
-                    autoCapitalize="none"
-                    placeholder="Password"
-                    onChangeText={(e) => setPassword(e)}
-                    value={password}
-                />
-                <Button title="Login" color="#e93766" onPress={handleLogin} />
-                <View>
-                    <Text>
-                        {' '}
+
+            <Text style={{ color: '#e93766', fontSize: 40 }}>Login</Text>
+            <Text style={{ color: 'red' }}>{errorMessage}</Text>
+            <TextInput
+                style={styles.textInput}
+                autoCapitalize="none"
+                placeholder="Email"
+                onChangeText={(e) => setEmail(e)}
+                value={email}
+            />
+            <TextInput
+                secureTextEntry
+                style={styles.textInput}
+                autoCapitalize="none"
+                placeholder="Password"
+                onChangeText={(e) => setPassword(e)}
+                value={password}
+            />
+            <Button title="Login" color="#e93766" onPress={handleLogin} />
+            <View>
+                <Text>
+                    {' '}
             Don't have an account?{' '}
-                        <Text
-                            onPress={() =>navigation.navigate('Signup')}
-                            style={{ color: '#e93766', fontSize: 18 }}>
-                            {' '}
+                    <Text
+                        onPress={() => navigation.navigate('Signup')}
+                        style={{ color: '#e93766', fontSize: 18 }}>
+                        {' '}
               Sign Up{' '}
-                        </Text>
                     </Text>
-                </View>
+                </Text>
             </View>
+        </View>
     );
 };
 
