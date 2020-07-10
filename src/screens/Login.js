@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         width: "60%",
         height: "60%",
         alignSelf: 'center',
-        opacity: 2,
+
     }, container: {
         flex: 1,
         flexDirection: "column"
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: "cover",
         position: 'relative',
-        opacity: .8,
+        // opacity: .8,
 
     },
     textInputemail: {

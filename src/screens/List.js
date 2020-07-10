@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     position: 'relative',
-    opacity: .8,
+    // opacity: .8,
     width: '100%', height: '100%',
 
   }, collapseHeader: {
