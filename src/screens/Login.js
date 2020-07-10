@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
-import styles from './Style';
+import { StyleSheet, Text, TextInput, View, Button, ImageBackground, Image, TouchableOpacity } from 'react-native';
+// import styles from './Style';
 
 import firebase from 'firebase';
 
@@ -13,18 +13,23 @@ const Login = ({ navigation }) => {
 
     const handleLogin = () => {
         firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(() => navigation.navigate('Home'))
-        .catch(error => setErrorMessage(error.message));
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then(() => navigation.navigate('Home'))
+            .catch(error => setErrorMessage(error.message));
     };
 
     return (
         <View style={styles.container}>
-                <Text style={{ color: '#e93766', fontSize: 40 }}>Login</Text>
-                <Text style={{ color: 'red' }}>{errorMessage}</Text>
+
+            <ImageBackground source={require('./assets/background3.png')} style={styles.background}>
+                <Image source={require('./assets/logocircle.png')} style={styles.image}>
+                    {/* <Text style={styles.welcometext}>Your gateway to great shopping.</Text> */}
+                </Image>
+                <Text style={{ color: '#8b4513', fontSize: 28, position: 'absolute', top: 270, alignSelf: 'center' }}>Login 🌸</Text>
+                <Text style={{ color: 'red', fontSize: 15, position: 'absolute', top: 20, left: 15, alignSelf: 'center' }}>{errorMessage}</Text>
                 <TextInput
-                    style={styles.textInput}
+                    style={styles.textInputemail}
                     autoCapitalize="none"
                     placeholder="Email"
                     onChangeText={(e) => setEmail(e)}
@@ -32,30 +37,86 @@ const Login = ({ navigation }) => {
                 />
                 <TextInput
                     secureTextEntry
-                    style={styles.textInput}
+                    style={styles.textInputpw}
                     autoCapitalize="none"
                     placeholder="Password"
                     onChangeText={(e) => setPassword(e)}
                     value={password}
                 />
-                <Button title="Login" color="#e93766" onPress={handleLogin} />
-                <View>
+                <View style={{ top: 480, position: 'absolute', alignSelf: 'center' }}>
+                    <Button title="Login" color="#8b4513" style={{ color: '#8b4513', fontSize: 20 }} onPress={handleLogin} />
                     <Text>
                         {' '}
             Don't have an account?{' '}
                         <Text
-                            onPress={() =>navigation.navigate('Signup')}
-                            style={{ color: '#e93766', fontSize: 18 }}>
+                            onPress={() => navigation.navigate('Signup')}
+                            style={{ color: '#8b4513', fontSize: 18 }}>
                             {' '}
               Sign Up{' '}
                         </Text>
                     </Text>
                 </View>
-            </View>
+
+            </ImageBackground>
+
+
+        </View>
     );
 };
 
 export default Login;
+
+const styles = StyleSheet.create({
+    image: {
+        // flex: 1,
+        resizeMode: "center",
+        position: 'absolute',
+        top: 0,
+        width: "60%",
+        height: "60%",
+        alignSelf: 'center',
+
+    }, container: {
+        flex: 1,
+        flexDirection: "column"
+    }, background: {
+        flex: 1,
+        resizeMode: "cover",
+        position: 'relative',
+        // opacity: .8,
+
+    },
+    textInputemail: {
+        color: '#8b4513',
+        fontSize: 20,
+        marginTop: 20,
+        position: 'absolute', // child
+        top: 320, // position where you want
+        left: 50,
+        borderBottomColor: '#a0522d',
+        borderBottomWidth: 1,
+        width: 300,
+    },
+    textInputpw: {
+        color: '#8b4513',
+        fontSize: 20,
+        marginTop: 20,
+        position: 'absolute', // child
+        top: 380, // position where you want
+        left: 50,
+        borderBottomColor: '#a0522d',
+        borderBottomWidth: 1,
+        width: 300,
+        // borderWidth: 2,
+        // borderColor: '#d2b48c',
+        // borderRadius: 4,
+        // width: '80%',
+    },
+    loginbutton: {
+        top: 400,
+        position: 'absolute',
+    },
+})
 
 // export default class Login extends React.Component {
 //     state = { email: '', password: '', errorMessage: null };
