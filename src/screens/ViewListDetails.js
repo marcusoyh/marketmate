@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Image, View, Text, StyleSheet, CheckBox, Alert, Button, TouchableOpacity, TextInput } from 'react-native';
+import { ScrollView, Image, View, Text, StyleSheet, CheckBox, Alert, Button, ImageBackground, TouchableOpacity, TextInput } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 
 import { db } from '../config';
@@ -256,7 +256,7 @@ export default class List extends Component {
                   <Button
                     title='Submit'
                     onPress={() => this.addItem(num)}
-                    color="#d2b48c"
+                    color="#bc8f8f"
                   />
                 </View>
               </CollapseBody>
@@ -272,7 +272,7 @@ export default class List extends Component {
                   <Button
                     title='Submit'
                     onPress={() => this.editListName(num, deletelist)}
-                    color="#d2b48c"
+                    color="#bc8f8f"
                   />
                 </View>
               </CollapseBody>
@@ -397,7 +397,7 @@ color="#bc8f8f"
                           <Button
                             title='Edit Item'
                             onPress={() => this.editItem(num)}
-                            color="#d2b48c"
+                            color="#bc8f8f"
                           />
                         </View>
 
@@ -419,7 +419,7 @@ color="#bc8f8f"
                             <CheckBox
                               // check={this.state.checked[index]}
                               // onPress={() => this.onChangeCheck(index)} />
-                              tintColors={{ true: '#8b4513', false: '#8b4513' }}
+                              tintColors={{ true: '#bc8f8f', false: '#bc8f8f' }}
                               value={this.state.checked}
                               onValueChange={() => this.onChangeCheck(num, index, deletelist)} />
                           </View>
@@ -525,6 +525,7 @@ color="#bc8f8f"
         this.state.listname = item.name;
         this.state.date = item.date;
         return (
+
           <View style={{ margin: 10 }}>
 
             <Text style={styles.text}>{"There are no items"}</Text>
@@ -543,6 +544,7 @@ color="#bc8f8f"
               />
             </View>
           </View>
+
         );
       }
 
@@ -557,9 +559,14 @@ color="#bc8f8f"
 
   render() {
 
-    return <ScrollView>
+    return (
+      <ImageBackground source={require('./assets/background3.png')} style={styles.background} >
 
-      <View style={styles.container}>{this.listM()}</View></ScrollView>;
+        <ScrollView>
+
+          <View style={styles.container}>{this.listM()}</View></ScrollView>
+      </ImageBackground>
+    )
   };
 }
 
@@ -569,7 +576,16 @@ const styles = StyleSheet.create({
     marginTop: 3,
     // backgroundColor: '#d9f9b1',
     // alignItems: 'center',
-  }, collapseHeader: {
+  }, background: {
+    flex: 1,
+    resizeMode: "cover",
+    position: 'relative',
+    opacity: .8,
+    width: '100%', height: '100%',
+
+  },
+
+  collapseHeader: {
     width: '100%',
     padding: 5,
     marginTop: 10,
@@ -602,7 +618,7 @@ const styles = StyleSheet.create({
     // fontWeight: 'bold'
   },
   textdate: {
-    color: '#d2b48c',
+    color: '#bc8f8f',
     fontSize: 20,
     textAlign: 'center',
 
@@ -628,7 +644,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
     fontSize: 18,
     borderWidth: 2,
-    borderColor: '#d2b48c',
+    borderColor: '#bc8f8f',
     borderRadius: 6,
     color: 'black',
     width: 230,

@@ -217,31 +217,41 @@ export default class List extends Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    return <ScrollView>
-
-      <View style={{ flexDirection: "row", flex: 6 }} >
-        <View style={{ flex: 5.5 }}>
-          <Text style={styles.textHeading}>{'My Lists'}</Text>
-        </View>
-        <View style={styles.addButton, { flex: 0.5 }}>
-          <Button
-            onPress={() => navigate('AddList')}
-            title="✚"
-            color="#d2b48c"
+    return (
 
 
-          />
-        </View>
-      </View>
-      <View>
-        <View style={styles.container}>
-          {/* <ImageBackground source={require('./assets/logo.png')} style={styles.image}>
-          {this.listM()}
-        </ImageBackground> */}
-          {this.listM()}
-        </View>
-      </View>
-    </ScrollView>;
+
+      <ImageBackground source={require('./assets/background3.png')} style={styles.background} >
+        <ScrollView>
+          <View style={styles.container}>
+
+            <View style={{ flexDirection: "row", flex: 6 }} >
+              <View style={{ flex: 5.5 }}>
+                <Text style={styles.textHeading}>{'My Lists'}</Text>
+              </View>
+              <View style={styles.addButton, { flex: 0.5 }}>
+                <Button
+                  onPress={() => navigate('AddList')}
+                  title="✚"
+                  color="#d2b48c"
+
+
+                />
+              </View>
+            </View>
+            <View>
+              {this.listM()}
+
+            </View>
+          </View>
+        </ScrollView>
+      </ImageBackground>
+
+
+
+
+
+    )
   };
 }
 
@@ -249,8 +259,18 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     marginTop: 3,
+    flex: 1,
+    flexDirection: "column"
     // backgroundColor: '#d9f9b1',
     // alignItems: 'center',
+  },
+  background: {
+    flex: 1,
+    resizeMode: "cover",
+    position: 'relative',
+    opacity: .8,
+    width: '100%', height: '100%',
+
   }, collapseHeader: {
     width: '100%',
     padding: 5,
@@ -293,7 +313,7 @@ const styles = StyleSheet.create({
     // fontWeight: 'bold'
   },
   textdate: {
-    color: '#d2b48c',
+    color: '#bc8f8f',
     fontSize: 20,
     // textAlign: 'center',
 
