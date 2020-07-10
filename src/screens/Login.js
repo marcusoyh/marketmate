@@ -15,7 +15,10 @@ const Login = ({ navigation }) => {
         firebase
             .auth()
             .signInWithEmailAndPassword(email, password)
-            .then(() => navigation.navigate('Home'))
+            .then(() => {
+                setErrorMessage('');
+                navigation.navigate('Home')
+            })
             .catch(error => setErrorMessage(error.message));
     };
 
