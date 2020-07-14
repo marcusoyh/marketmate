@@ -8,6 +8,7 @@ import {
     TextInput,
     Alert,
     ScrollView,
+    ImageBackground,
 } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 import DatePicker from 'react-native-datepicker';
@@ -21,7 +22,7 @@ const AddList = () => {
     const [name, setName] = useState('');
     const [items, setItems] = useState([{}]);
     const [itemNames, setItemNames] = useState([]);
-    const [date,setDate] = useState();
+    const [date, setDate] = useState();
 
     const submit = () => {
         const user = firebase.auth().currentUser;
@@ -90,74 +91,81 @@ const AddList = () => {
     };
 
     return (
-        <ScrollView>
-            <View style={styles.main}>
-                <Text style={styles.title}>List Name</Text>
-                <TextInput
-                    style={styles.listNameInput}
-                    placeholder="List Name"
-                    onChange={(e) => setName(e.nativeEvent.text)}
-                />
-                <DatePicker
-                    style={{ width: 200 }}
-                    date={date}
-                    mode="date"
-                    placeholder="select date"
-                    format="YYYY-MM-DD"
-                    minDate="2020-06-01"
-                    maxDate="2021-06-01"
-                    confirmBtnText="Confirm"
-                    cancelBtnText="Cancel"
-                    customStyles={{
-                        dateIcon: {
-                            position: 'absolute',
-                            left: 0,
-                            top: 4,
-                            marginLeft: 0,
-                        },
-                        dateInput: {
-                            marginLeft: 36,
-                        },
-                        // ... You can check the source to find the other keys.
-                    }}
-                    onDateChange={(d) => setDate(d)}
-                />
-                {items.map((item, index) => {
-                    return (
-                        <View>
-                            <Collapse>
-                                <CollapseHeader>
-                                    <Text>Item {index + 1}</Text>
-                                </CollapseHeader>
-                                <CollapseBody>
-                                    <TextInput style={styles.itemNameInput} placeholder="Name" onChange={(e) => handleChangeName(e, index)} />
-                                    <TextInput style={styles.detailInput} placeholder="Price" onChange={(e) => handleChangePrice(e, index)} />
-                                    <TextInput style={styles.detailInput} placeholder="Quantity" onChange={(e) => handleChangeQuantity(e, index)} />
-                                    <TextInput style={styles.detailInput} placeholder="Notes" onChange={(e) => handleChangeNotes(e, index)} />
-                                </CollapseBody>
-                            </Collapse>
-                            {/* <TextInput style={styles.itemInput} onChange={(e) => handleChangeName(e, index)} />
+        <ImageBackground source={require('./assets/background3.png')} style={styles.background}>
+            <ScrollView>
+                <View style={styles.main}>
+                    <Text style={styles.title}>List Name 🌹</Text>
+                    <TextInput
+                        style={styles.listNameInput}
+                        placeholder="List Name"
+                        onChange={(e) => setName(e.nativeEvent.text)}
+                    />
+
+                    <DatePicker
+                        style={{ width: 200, marginTop: 20, color: '#8b4513' }}
+                        date={date}
+                        mode="date"
+                        placeholder="select date"
+                        format="YYYY-MM-DD"
+                        minDate="2020-06-01"
+                        maxDate="2021-06-01"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                            dateIcon: {
+                                position: 'absolute',
+                                left: 0,
+                                top: 4,
+                                marginLeft: 0,
+                            },
+                            dateInput: {
+                                marginLeft: 46,
+                                borderColor: '#8b4513',
+                                color: '#8b4513'
+                            },
+                            // ... You can check the source to find the other keys.
+                        }}
+                        onDateChange={(d) => setDate(d)}
+                    />
+                    {items.map((item, index) => {
+                        return (
+                            <View>
+                                <Collapse>
+                                    <CollapseHeader>
+                                        <Text style={styles.itemheader}>Add Item {index + 1}  ▼</Text>
+                                    </CollapseHeader>
+                                    <CollapseBody>
+                                        <TextInput style={styles.detailInput} placeholder="Name" onChange={(e) => handleChangeName(e, index)} />
+                                        <TextInput style={styles.detailInput} placeholder="Price" onChange={(e) => handleChangePrice(e, index)} />
+                                        <TextInput style={styles.detailInput} placeholder="Quantity" onChange={(e) => handleChangeQuantity(e, index)} />
+                                        <TextInput style={styles.detailInput} placeholder="Notes" onChange={(e) => handleChangeNotes(e, index)} />
+
+                                        <TouchableHighlight
+                                            color="#8b4513"
+                                            style={styles.button}
+                                            underlayColor="#8b4513"
+                                            onPress={addItem}>
+                                            <Text style={styles.addItemButtonText}>Add Item</Text>
+                                        </TouchableHighlight>
+                                    </CollapseBody>
+                                </Collapse>
+                                {/* <TextInput style={styles.itemInput} onChange={(e) => handleChangeName(e, index)} />
                     <TextInput style={styles.itemInput} onChange={(e) => handleChangePrice(e, index)} />
                      */}
-                        </View>
-                    );
-                })}
+                            </View>
+                        );
+                    })}
 
-                <TouchableHighlight
-                    style={styles.button}
-                    underlayColor="white"
-                    onPress={addItem}>
-                    <Text style={styles.addItemButtonText}>Add Item</Text>
-                </TouchableHighlight>
 
-                <TouchableHighlight
-                    style={styles.button}
-                    underlayColor="white"
-                    onPress={submit}>
-                    <Text style={styles.createListButtonText}>Create</Text>
-                </TouchableHighlight>
-            </View>
-        </ScrollView>
+                    <TouchableHighlight
+                        style={styles.createbutton}
+                        underlayColor="white"
+                        onPress={submit}>
+                        <Text style={styles.createListButtonText}>Create</Text>
+                    </TouchableHighlight>
+                </View>
+            </ScrollView>
+        </ImageBackground>
     );
 };
 const styles = StyleSheet.create({
@@ -166,12 +174,13 @@ const styles = StyleSheet.create({
         padding: 30,
         flexDirection: 'column',
         justifyContent: 'center',
-        backgroundColor: '#6565fc',
     },
     title: {
         marginBottom: 20,
         fontSize: 25,
         textAlign: 'center',
+        color: '#8b4513',
+
     },
     subtitle: {
         marginBottom: 20,
@@ -184,9 +193,9 @@ const styles = StyleSheet.create({
         marginRight: 5,
         fontSize: 23,
         borderWidth: 1,
-        borderColor: 'white',
+        borderColor: '#8b4513',
         borderRadius: 8,
-        color: 'white',
+        color: '#8b4513',
     },
     itemNameInput: {
         height: 40,
@@ -195,42 +204,75 @@ const styles = StyleSheet.create({
         marginRight: 5,
         fontSize: 23,
         borderWidth: 1,
-        borderColor: 'white',
+        borderColor: '#8b4513',
         borderRadius: 8,
-        color: 'white',
+        color: '#8b4513',
+    },
+    itemheader: {
+        height: 40,
+        padding: 2,
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 10,
+        fontSize: 25,
+        color: '#8b4513',
     },
     detailInput: {
         height: 40,
         padding: 2,
         marginLeft: 15,
         marginRight: 5,
+        marginTop: 5,
         fontSize: 23,
         borderWidth: 1,
-        borderColor: 'white',
+        borderColor: '#8b4513',
         borderRadius: 8,
-        color: 'white',
+        color: '#8b4513',
     },
     createListButtonText: {
         fontSize: 18,
-        color: '#8fbc8f',
+        color: '#8b4513',
         alignSelf: 'center',
     },
     addItemButtonText: {
         fontSize: 18,
-        color: '#111',
+        color: '#8b4513',
         alignSelf: 'center',
     },
     button: {
-        height: 45,
+        height: 40,
+        width: 120,
         flexDirection: 'row',
-        backgroundColor: 'white',
-        borderColor: 'white',
+        backgroundColor: "#d2b48c",
+        borderColor: '#d2b48c',
         borderWidth: 1,
         borderRadius: 8,
         marginBottom: 10,
         marginTop: 10,
         alignSelf: 'stretch',
         justifyContent: 'center',
+        alignSelf: 'center',
+    },
+    createbutton: {
+        height: 40,
+
+        flexDirection: 'row',
+        backgroundColor: "#d2b48c",
+        borderColor: '#d2b48c',
+        borderWidth: 1,
+        borderRadius: 8,
+        marginBottom: 10,
+        marginTop: 10,
+        alignSelf: 'stretch',
+        justifyContent: 'center',
+
+    },
+    background: {
+        flex: 1,
+        resizeMode: "cover",
+        position: 'relative',
+        // opacity: .8,
+
     },
 });
 

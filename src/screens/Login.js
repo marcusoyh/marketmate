@@ -20,12 +20,14 @@ const Login = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
 
-            <ImageBackground source={require('./assets/background3.png')} style={styles.background}>
-                <Image source={require('./assets/logocircle.png')} style={styles.image}>
-                    {/* <Text style={styles.welcometext}>Your gateway to great shopping.</Text> */}
-                </Image>
+
+        <ImageBackground source={require('./assets/background3.png')} style={styles.background}>
+            <Image source={require('./assets/logocircle.png')} style={styles.image}>
+                {/* <Text style={styles.welcometext}>Your gateway to great shopping.</Text> */}
+            </Image>
+
+            <View style={styles.container}>
                 <Text style={{ color: '#8b4513', fontSize: 28, position: 'absolute', top: 270, alignSelf: 'center' }}>Login 🌸</Text>
                 <Text style={{ color: 'red', fontSize: 15, position: 'absolute', top: 20, left: 15, alignSelf: 'center' }}>{errorMessage}</Text>
                 <TextInput
@@ -56,11 +58,10 @@ const Login = ({ navigation }) => {
                         </Text>
                     </Text>
                 </View>
+            </View>
+        </ImageBackground>
 
-            </ImageBackground>
 
-
-        </View>
     );
 };
 
