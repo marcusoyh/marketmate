@@ -20,6 +20,9 @@ export default class List extends Component {
     const uid = firebase.auth().currentUser.uid;
     let itemsRef = db.ref('/' + uid + '/lists');
     itemsRef.on('value', snapshot => {
+      // snapshot.forEach((child) => {
+      //   console.log(child.key);
+      // })
       let data = snapshot.val();
       let items = Object.values(data);
       this.setState({ items });
