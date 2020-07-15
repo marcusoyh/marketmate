@@ -77,7 +77,7 @@ const Home = ({ navigation }) => {
 
 
       <View style={{ flex: 6 }, { flexDirection: 'row' }}>
-        <View style={{ flex: 3, backgroundColor: '#d3d3d3', height: 170, opacity: 0.7 }} >
+        <View style={{ flex: 3, backgroundColor: '#dcdcdc', height: 170, opacity: 0.7 }} >
           <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate('List')}
           >
             <Image
@@ -88,7 +88,7 @@ const Home = ({ navigation }) => {
 
           </TouchableOpacity>
         </View>
-        <View style={{ flex: 3, backgroundColor: '#bc8f8f', height: 170, opacity: 0.7 }} >
+        <View style={{ flex: 3, backgroundColor: '#dcdcdc', height: 170, opacity: 0.7 }} >
           <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate('AddList')}
           >
             <Image

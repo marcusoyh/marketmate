@@ -23,6 +23,7 @@ const AddList = () => {
     const [items, setItems] = useState([{}]);
     const [itemNames, setItemNames] = useState([]);
     const [date, setDate] = useState();
+    const [add, setAdd] = useState(false);
 
     const submit = () => {
         const user = firebase.auth().currentUser;
@@ -80,93 +81,214 @@ const AddList = () => {
     };
 
     const addItem = () => {
+        setAdd(true);
         const newItems = items;
         newItems.push({});
-        setItems(newItems);
+        // const length = items.length;
+        // console.log(length);
+        // newItems[length - 1]["name"] = "";
+
         //setItems((i) => i.concat(''));
-        console.log(items);
-        items.map((item, index) => {
-            console.log(item);
-        });
+        // console.log(items);
+        // items.map((item, index) => {
+        //     console.log("map" + item);
+        // });
+        Alert.alert("Item is added");
+        setItems(newItems);
     };
 
-    return (
-        <ImageBackground source={require('./assets/background3.png')} style={styles.background}>
-            <ScrollView>
-                <View style={styles.main}>
-                    <Text style={styles.title}>List Name 🌹</Text>
-                    <TextInput
-                        style={styles.listNameInput}
-                        placeholder="List Name"
-                        onChange={(e) => setName(e.nativeEvent.text)}
-                    />
 
-                    <DatePicker
-                        style={{ width: 200, marginTop: 20, color: '#8b4513' }}
-                        date={date}
-                        mode="date"
-                        placeholder="select date"
-                        format="YYYY-MM-DD"
-                        minDate="2020-06-01"
-                        maxDate="2021-06-01"
-                        confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
-                        customStyles={{
-                            dateIcon: {
-                                position: 'absolute',
-                                left: 0,
-                                top: 4,
-                                marginLeft: 0,
-                            },
-                            dateInput: {
-                                marginLeft: 46,
-                                borderColor: '#8b4513',
-                                color: '#8b4513'
-                            },
-                            // ... You can check the source to find the other keys.
-                        }}
-                        onDateChange={(d) => setDate(d)}
-                    />
-                    {items.map((item, index) => {
-                        return (
-                            <View>
-                                <Collapse>
-                                    <CollapseHeader>
-                                        <Text style={styles.itemheader}>Add Item {index + 1}  ▼</Text>
-                                    </CollapseHeader>
-                                    <CollapseBody>
-                                        <TextInput style={styles.detailInput} placeholder="Name" onChange={(e) => handleChangeName(e, index)} />
-                                        <TextInput style={styles.detailInput} placeholder="Price" onChange={(e) => handleChangePrice(e, index)} />
-                                        <TextInput style={styles.detailInput} placeholder="Quantity" onChange={(e) => handleChangeQuantity(e, index)} />
-                                        <TextInput style={styles.detailInput} placeholder="Notes" onChange={(e) => handleChangeNotes(e, index)} />
+    if (add == false) {
+        return (
+            <ImageBackground source={require('./assets/background3.png')} style={styles.background}>
+                <ScrollView>
+                    <View style={styles.main}>
+                        <Text style={styles.title}>List Name 🌹</Text>
+                        <TextInput
+                            style={styles.listNameInput}
+                            placeholder="List Name"
+                            onChange={(e) => setName(e.nativeEvent.text)}
+                        />
 
-                                        <TouchableHighlight
-                                            color="#8b4513"
-                                            style={styles.button}
-                                            underlayColor="#8b4513"
-                                            onPress={addItem}>
-                                            <Text style={styles.addItemButtonText}>Add Item</Text>
-                                        </TouchableHighlight>
-                                    </CollapseBody>
-                                </Collapse>
-                                {/* <TextInput style={styles.itemInput} onChange={(e) => handleChangeName(e, index)} />
+                        <DatePicker
+                            style={{ width: 200, marginTop: 20, color: '#8b4513' }}
+                            date={date}
+                            mode="date"
+                            placeholder="select date"
+                            format="YYYY-MM-DD"
+                            minDate="2020-06-01"
+                            maxDate="2021-06-01"
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            customStyles={{
+                                dateIcon: {
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: 4,
+                                    marginLeft: 0,
+                                },
+                                dateInput: {
+                                    marginLeft: 46,
+                                    borderColor: '#8b4513',
+                                    color: '#8b4513'
+                                },
+                                // ... You can check the source to find the other keys.
+                            }}
+                            onDateChange={(d) => setDate(d)}
+                        />
+                        {items.map((item, index) => {
+                            console.log("inside" + index);
+
+                            return (
+                                <View>
+                                    <Collapse>
+                                        <CollapseHeader>
+                                            <Text style={styles.itemheader}>Add Item {index + 1}  ▼</Text>
+                                        </CollapseHeader>
+                                        <CollapseBody>
+                                            <TextInput style={styles.detailInput} placeholder="Name" onChange={(e) => handleChangeName(e, index)} />
+                                            <TextInput style={styles.detailInput} placeholder="Price" onChange={(e) => handleChangePrice(e, index)} />
+                                            <TextInput style={styles.detailInput} placeholder="Quantity" onChange={(e) => handleChangeQuantity(e, index)} />
+                                            <TextInput style={styles.detailInput} placeholder="Notes" onChange={(e) => handleChangeNotes(e, index)} />
+
+                                            <TouchableHighlight
+                                                color="#8b4513"
+                                                style={styles.button}
+                                                underlayColor="#8b4513"
+                                                onPress={addItem}>
+
+                                                <Text style={styles.addItemButtonText}>Add Item</Text>
+                                            </TouchableHighlight>
+                                        </CollapseBody>
+                                    </Collapse>
+                                    {/* <TextInput style={styles.itemInput} onChange={(e) => handleChangeName(e, index)} />
                     <TextInput style={styles.itemInput} onChange={(e) => handleChangePrice(e, index)} />
                      */}
-                            </View>
-                        );
-                    })}
+                                </View>
+                            );
+                        })}
 
 
-                    <TouchableHighlight
-                        style={styles.createbutton}
-                        underlayColor="white"
-                        onPress={submit}>
-                        <Text style={styles.createListButtonText}>Create</Text>
-                    </TouchableHighlight>
-                </View>
-            </ScrollView>
-        </ImageBackground>
-    );
+                        <TouchableHighlight
+                            style={styles.createbutton}
+                            underlayColor="white"
+                            onPress={submit}>
+                            <Text style={styles.createListButtonText}>Create</Text>
+                        </TouchableHighlight>
+                    </View>
+                </ScrollView>
+            </ImageBackground>
+        );
+    } else if (add == true) {
+        setAdd(false);
+        const length = items.length;
+        return (
+            <ImageBackground source={require('./assets/background3.png')} style={styles.background}>
+                <ScrollView>
+                    <View style={styles.main}>
+                        <Text style={styles.title}>List Name 🌹</Text>
+                        <TextInput
+                            style={styles.listNameInput}
+                            placeholder="List Name"
+                            onChange={(e) => setName(e.nativeEvent.text)}
+                        />
+
+                        <DatePicker
+                            style={{ width: 200, marginTop: 20, color: '#8b4513' }}
+                            date={date}
+                            mode="date"
+                            placeholder="select date"
+                            format="YYYY-MM-DD"
+                            minDate="2020-06-01"
+                            maxDate="2021-06-01"
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            customStyles={{
+                                dateIcon: {
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: 4,
+                                    marginLeft: 0,
+                                },
+                                dateInput: {
+                                    marginLeft: 46,
+                                    borderColor: '#8b4513',
+                                    color: '#8b4513'
+                                },
+                                // ... You can check the source to find the other keys.
+                            }}
+                            onDateChange={(d) => setDate(d)}
+                        />
+                        {items.map((item, index) => {
+                            console.log("inside" + index);
+
+                            return (
+                                <View>
+                                    <Collapse>
+                                        <CollapseHeader>
+                                            <Text style={styles.itemheader}>Add Item {index + 1}  ▼</Text>
+                                        </CollapseHeader>
+                                        <CollapseBody>
+                                            <TextInput style={styles.detailInput} placeholder="Name" onChange={(e) => handleChangeName(e, index)} />
+                                            <TextInput style={styles.detailInput} placeholder="Price" onChange={(e) => handleChangePrice(e, index)} />
+                                            <TextInput style={styles.detailInput} placeholder="Quantity" onChange={(e) => handleChangeQuantity(e, index)} />
+                                            <TextInput style={styles.detailInput} placeholder="Notes" onChange={(e) => handleChangeNotes(e, index)} />
+
+                                            <TouchableHighlight
+                                                color="#8b4513"
+                                                style={styles.button}
+                                                underlayColor="#8b4513"
+                                                onPress={addItem}>
+
+                                                <Text style={styles.addItemButtonText}>Add Item</Text>
+                                            </TouchableHighlight>
+                                        </CollapseBody>
+                                    </Collapse>
+                                    {/* <TextInput style={styles.itemInput} onChange={(e) => handleChangeName(e, index)} />
+                        <TextInput style={styles.itemInput} onChange={(e) => handleChangePrice(e, index)} />
+                         */}
+                                </View>
+                            );
+                        })}
+                        <View>
+                            <Collapse>
+                                <CollapseHeader>
+                                    <Text style={styles.itemheader}>Add Item {length}  ▼</Text>
+                                </CollapseHeader>
+                                <CollapseBody>
+                                    <TextInput style={styles.detailInput} placeholder="Name" onChange={(e) => handleChangeName(e, index)} />
+                                    <TextInput style={styles.detailInput} placeholder="Price" onChange={(e) => handleChangePrice(e, index)} />
+                                    <TextInput style={styles.detailInput} placeholder="Quantity" onChange={(e) => handleChangeQuantity(e, index)} />
+                                    <TextInput style={styles.detailInput} placeholder="Notes" onChange={(e) => handleChangeNotes(e, index)} />
+
+                                    <TouchableHighlight
+                                        color="#8b4513"
+                                        style={styles.button}
+                                        underlayColor="#8b4513"
+                                        onPress={addItem}>
+
+                                        <Text style={styles.addItemButtonText}>Add Item</Text>
+                                    </TouchableHighlight>
+                                </CollapseBody>
+                            </Collapse>
+                            {/* <TextInput style={styles.itemInput} onChange={(e) => handleChangeName(e, index)} />
+                        <TextInput style={styles.itemInput} onChange={(e) => handleChangePrice(e, index)} />
+                         */}
+                        </View>
+
+                        <TouchableHighlight
+                            style={styles.createbutton}
+                            underlayColor="white"
+                            onPress={submit}>
+                            <Text style={styles.createListButtonText}>Create</Text>
+                        </TouchableHighlight>
+                    </View>
+                </ScrollView>
+            </ImageBackground>
+        );
+
+    }
+
 };
 const styles = StyleSheet.create({
     main: {
