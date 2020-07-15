@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#8b4513',
-    fontSize: 28,
+    fontSize: 24,
     // textAlign: 'center',
     // fontWeight: 'bold'
   }, textHeading: {
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
     color: '#8b4513',
-    fontSize: 26,
+    fontSize: 24,
     // textAlign: 'center',
 
   },
