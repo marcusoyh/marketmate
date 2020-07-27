@@ -254,7 +254,7 @@ export default class List extends Component {
                 <TextInput style={styles.detailInput} placeholder="Notes" onChangeText={(val) => this.inputValueUpdate(val, 'notes', indexItem)} />
                 <View style={styles.submitButton}>
                   <Button
-                    title='Submit'
+                    title='Add'
                     onPress={() => this.addItem(num)}
                     color="#bc8f8f"
                   />
