@@ -95,7 +95,7 @@ const Signup = ({ navigation }) => {
                             onPress={() => navigation.navigate('Login')}
                             style={{ color: '#8b4513', fontSize: 18 }}>
                             {' '}
-              Sign Up{' '}
+              Login{' '}
                         </Text>
                     </Text>
                 </View>

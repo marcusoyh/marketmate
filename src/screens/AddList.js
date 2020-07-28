@@ -143,7 +143,7 @@ const AddList = () => {
                                 <View>
                                     <Collapse>
                                         <CollapseHeader>
-                                            <Text style={styles.itemheader}>Add Item {index + 1}  ▼</Text>
+                                            <Text style={styles.itemheader}>Item {index + 1}  ▼</Text>
                                         </CollapseHeader>
                                         <CollapseBody>
                                             <TextInput style={styles.detailInput} placeholder="Name" onChange={(e) => handleChangeName(e, index)} />

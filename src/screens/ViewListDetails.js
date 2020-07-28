@@ -615,6 +615,7 @@ const styles = StyleSheet.create({
     color: '#8b4513',
     fontSize: 32,
     textAlign: 'center',
+    textDecorationLine: 'line-through',
     // fontWeight: 'bold'
   },
   textdate: {
