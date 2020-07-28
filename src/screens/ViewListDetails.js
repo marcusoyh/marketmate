@@ -680,7 +680,7 @@ const styles = StyleSheet.create({
     width: 90,
     alignSelf: 'center',
   },
-  //THIS IS THE STYLING FOR THE ITEM NAME
+  //THIS IS THE ORIGINAL STYLING FOR THE ITEM NAME
   headercollapse: {
     fontSize: 22,
     color: 'black',

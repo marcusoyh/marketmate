@@ -65,6 +65,25 @@ export default class List extends Component {
 
   }
 
+  getTextStyle(checked) {
+    if (checked) {
+      return {
+        fontSize: 22,
+        color: 'black',
+        // textAlign: 'center',
+        marginLeft: 15,
+        textDecorationLine: 'line-through',
+      }
+    } else {
+      return {
+        fontSize: 22,
+        color: 'black',
+        // textAlign: 'center',
+        marginLeft: 15,
+      }
+
+    }
+  }
 
   listM = () => {
     const { navigate } = this.props.navigation;
@@ -198,7 +217,8 @@ export default class List extends Component {
                   return (
 
                     <View>
-                      <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}</Text>
+                      {/* <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}</Text> */}
+                      <Text style={this.getTextStyle(info.check)}  >{index + 1 + ": "}{info.name}</Text>
                     </View>
                   );
 
@@ -343,13 +363,15 @@ const styles = StyleSheet.create({
     width: 250,
 
   },
+  //ORIGINAL STYLING FOR THE ITEM NAME
   headercollapse: {
     fontSize: 22,
     color: 'black',
     // textAlign: 'center',
     marginLeft: 15,
-
-  }, addItemButtonText: {
+    textDecorationLine: 'line-through',
+  },
+  addItemButtonText: {
     fontSize: 18,
     color: '#111',
     alignSelf: 'center',
