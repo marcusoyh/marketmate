@@ -109,6 +109,20 @@ export default class List extends Component {
     this.setState({ checked: false });
   }
 
+  getTextStyle(checked) {
+    if (checked) {
+      return {
+        fontSize: 22,
+        color: 'black',
+        textDecorationLine: 'line-through',
+      }
+    } else {
+      return {
+        fontSize: 22,
+        color: 'black',
+      }
+    }
+  }
   inputValueUpdate(val, prop, index) {
     const newItems = this.state.additems;
     newItems.map((item, index) => {
@@ -424,7 +438,9 @@ color="#bc8f8f"
                               onValueChange={() => this.onChangeCheck(num, index, deletelist)} />
                           </View>
                           <View style={{ marginLeft: 20 }, { marginRight: 20 }, { flex: 4 }}>
-                            <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}{'  ▼'}</Text>
+                            {/* <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}{'  ▼'}</Text> */}
+                            <Text style={this.getTextStyle(info.check)}  >{index + 1 + ": "}{info.name}{'  ▼'}</Text>
+                            
                           </View>
                           {/* </View> */}
                           {/* <View style={{ flexDirection: "row-reverse" }} > */}
@@ -576,7 +592,8 @@ const styles = StyleSheet.create({
     marginTop: 3,
     // backgroundColor: '#d9f9b1',
     // alignItems: 'center',
-  }, background: {
+  }, 
+  background: {
     flex: 1,
     resizeMode: "cover",
     position: 'relative',
@@ -584,7 +601,6 @@ const styles = StyleSheet.create({
     width: '100%', height: '100%',
 
   },
-
   collapseHeader: {
     width: '100%',
     padding: 5,
@@ -602,7 +618,8 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
 
 
-  }, ImageIconStyleEdit: {
+  },
+  ImageIconStyleEdit: {
     padding: 10,
     margin: 5,
     height: 22,
@@ -615,7 +632,6 @@ const styles = StyleSheet.create({
     color: '#8b4513',
     fontSize: 32,
     textAlign: 'center',
-    textDecorationLine: 'line-through',
     // fontWeight: 'bold'
   },
   textdate: {
@@ -664,10 +680,13 @@ const styles = StyleSheet.create({
     width: 90,
     alignSelf: 'center',
   },
+  //THIS IS THE STYLING FOR THE ITEM NAME
   headercollapse: {
     fontSize: 22,
     color: 'black',
-  }, addItemButtonText: {
+    //textDecorationLine: 'line-through',
+  },
+  addItemButtonText: {
     fontSize: 18,
     color: '#111',
     alignSelf: 'center',
