@@ -84,7 +84,7 @@ export default class List extends Component {
       })
     });
 
-    db.ref('/' + uid + '/lists' + '/' + childkey[listIndex] + '/items' + '/' +itemIndex ).set(itemInfo);
+    db.ref('/' + uid + '/lists' + '/' + childkey[listIndex] + '/items' + '/' + itemIndex).set(itemInfo);
 
     // console.log("before" + this.state.checked);
     // if (this.state.checked == true) {
@@ -268,16 +268,20 @@ export default class List extends Component {
                 {element.items.map((info, num) => {
                   return (
 
-                    <View>
+                    <View style={{ flexDirection: "row", flex: 6 }}>
                       {/* <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}</Text> */}
                       {/* <Text style={this.getTextStyle(info.check)}  >{index + 1 + ": "}{info.name}</Text> */}
-                      <CheckBox
-                        // check={this.state.checked[index]}
-                        // onPress={() => this.onChangeCheck(index)} />
-                        tintColors={{ true: '#bc8f8f', false: '#bc8f8f' }}
-                        value={info.check}
-                        onValueChange={() => this.onChangeCheck(info, num, index)} />
-                      <Text style={this.getTextStyle(info.check)}>{info.name}</Text>
+                      <View style={{ marginRight: 20 }, { flex: 1 }}>
+                        <CheckBox
+                          // check={this.state.checked[index]}
+                          // onPress={() => this.onChangeCheck(index)} />
+                          tintColors={{ true: '#bc8f8f', false: '#bc8f8f' }}
+                          value={info.check}
+                          onValueChange={() => this.onChangeCheck(info, num, index)} />
+                      </View>
+                      <View style = {{flex:20}}>
+                        <Text style={this.getTextStyle(info.check)}>{num + 1 + ": "}{info.name}</Text>
+                      </View>
                     </View>
                   );
 
@@ -286,7 +290,7 @@ export default class List extends Component {
               </CollapseBody>
             </Collapse>
 
-          </View>
+          </View >
 
 
 
