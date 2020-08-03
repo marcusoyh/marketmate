@@ -47,8 +47,16 @@ const AddList = () => {
         //newItems[index][0]= e.nativeEvent.text;
         setItems(newItems);
         setItemNames((i) => i.concat(e.nativeEvent.text));
-
     };
+
+    const getPlaceholderName = (index) => {
+        return "Name";
+        // if (newItems[index]["name"]) {
+        //     return newItems[index]["name"];
+        // } else {
+        //     return "Name";
+        // }
+    }
 
     const handleChangePrice = (e, index) => {
         console.log('INDEX:');
@@ -83,7 +91,9 @@ const AddList = () => {
     const addItem = () => {
         setAdd(true);
         const newItems = items;
-        newItems.push({});
+        //newItems.push({"name":"", "notes":"","notes":"","price":"","quantity":""});
+         newItems.push({});
+
         // const length = items.length;
         // console.log(length);
         // newItems[length - 1]["name"] = "";
@@ -146,19 +156,29 @@ const AddList = () => {
                                             <Text style={styles.itemheader}>Item {index + 1}  ▼</Text>
                                         </CollapseHeader>
                                         <CollapseBody>
+                                            <View style={{ flexDirection: "row" }} >
+                                                <View>
+                                                    <Text style={styles.newDetailHeader}  >{"Name: "}</Text>
+                                                </View>
+                                                <View>
+                                                    {/* <Text style={styles.detailInput}  >{info.name}</Text> */}
+                                                    <TextInput style={styles.newDetailInput} value={items[index]["name"]} onChange={(e) => handleChangeName(e, index)} />
+                                                </View>
+                                            </View>
+
                                             <TextInput style={styles.detailInput} placeholder="Name" onChange={(e) => handleChangeName(e, index)} />
                                             <TextInput style={styles.detailInput} placeholder="Price" onChange={(e) => handleChangePrice(e, index)} />
                                             <TextInput style={styles.detailInput} placeholder="Quantity" onChange={(e) => handleChangeQuantity(e, index)} />
                                             <TextInput style={styles.detailInput} placeholder="Notes" onChange={(e) => handleChangeNotes(e, index)} />
 
-                                            <TouchableHighlight
+                                            {/* <TouchableHighlight
                                                 color="#8b4513"
                                                 style={styles.button}
                                                 underlayColor="#8b4513"
                                                 onPress={addItem}>
 
                                                 <Text style={styles.addItemButtonText}>Add Item</Text>
-                                            </TouchableHighlight>
+                                            </TouchableHighlight> */}
                                         </CollapseBody>
                                     </Collapse>
                                     {/* <TextInput style={styles.itemInput} onChange={(e) => handleChangeName(e, index)} />
@@ -168,7 +188,14 @@ const AddList = () => {
                             );
                         })}
 
+                        <TouchableHighlight
+                            color="#8b4513"
+                            style={styles.button}
+                            underlayColor="#8b4513"
+                            onPress={addItem}>
 
+                            <Text style={styles.addItemButtonText}>Add Item</Text>
+                        </TouchableHighlight>
                         <TouchableHighlight
                             style={styles.createbutton}
                             underlayColor="white"
@@ -275,7 +302,6 @@ const AddList = () => {
                         <TextInput style={styles.itemInput} onChange={(e) => handleChangePrice(e, index)} />
                          */}
                         </View>
-
                         <TouchableHighlight
                             style={styles.createbutton}
                             underlayColor="white"
@@ -339,6 +365,33 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: '#8b4513',
     },
+    newDetailHeader: {
+        padding: 5,
+        marginTop: 10,
+        marginLeft: 5,
+    
+        fontSize: 18,
+        borderWidth: 2,
+        borderColor: 'rgba(0, 0, 0, 0)',
+        borderRadius: 6,
+        color: 'black',
+        width: 90,
+        alignSelf: 'center',
+      },
+    newDetailInput: {
+        // height: 30,
+        padding: 5,
+        marginTop: 10,
+        marginLeft: 5,
+        marginRight: 5,
+        fontSize: 18,
+        borderWidth: 2,
+        borderColor: '#bc8f8f',
+        borderRadius: 6,
+        color: 'black',
+        width: 230,
+        alignSelf: 'center',
+      },
     detailInput: {
         height: 40,
         padding: 2,
