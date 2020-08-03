@@ -78,6 +78,11 @@ export default class List extends Component {
   }
 
   onChangeCheck(num, index, itemslist) {
+    console.log("*****MY PRINTING STARTS******");
+    console.log(num);
+    console.log(index);
+    console.log(itemslist);
+    console.log("*****MY PRINTING ENDS******");
     console.log("before" + this.state.checked);
     if (this.state.checked == true) {
       this.state.checked = false;
@@ -99,6 +104,9 @@ export default class List extends Component {
         childkey.push(child.key);
       })
     });
+    console.log("*****SECOND PRINTING STARTS******");
+    console.log(childkey);
+    console.log("*****SECOND PRINTING ENDS******");
     console.log('listname' + this.state.listname);
     db.ref('/' + uid + '/lists' + '/' + childkey[num]).set({
       items: itemslist,
@@ -440,7 +448,7 @@ color="#bc8f8f"
                           <View style={{ marginLeft: 20 }, { marginRight: 20 }, { flex: 4 }}>
                             {/* <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}{'  ▼'}</Text> */}
                             <Text style={this.getTextStyle(info.check)}  >{index + 1 + ": "}{info.name}{'  ▼'}</Text>
-                            
+
                           </View>
                           {/* </View> */}
                           {/* <View style={{ flexDirection: "row-reverse" }} > */}
@@ -592,7 +600,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     // backgroundColor: '#d9f9b1',
     // alignItems: 'center',
-  }, 
+  },
   background: {
     flex: 1,
     resizeMode: "cover",

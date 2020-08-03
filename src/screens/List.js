@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { ScrollView, View, Text, StyleSheet, Alert, Image, ImageBackground, Button, DatePicker, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Alert, Image, ImageBackground, Button, DatePicker, TouchableOpacity, CheckBox } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from "accordion-collapse-react-native";
 
 import { db } from '../config';
@@ -63,6 +63,58 @@ export default class List extends Component {
     console.log("List is removed");
 
 
+  }
+
+  onChangeCheck(itemInfo, itemIndex, listIndex) {
+    console.log("ITEM INDEX: " + itemIndex); //num is the index of the ITEM
+    console.log("ITEM DETAILS: "); //itemslist is the details of that ONE ITEM
+    console.log(itemInfo);
+    console.log("LIST INDEX NUMBER:" + listIndex); //index should be the index of the LIST
+
+    console.log("BEFORE CHECKING: " + itemInfo['check']);
+    itemInfo['check'] = !(itemInfo['check']);
+    console.log("AFTER CHECKING: " + itemInfo['check']);
+
+    const uid = firebase.auth().currentUser.uid;
+    let itemsRef = db.ref('/' + uid + '/lists');
+    const childkey = [];
+    itemsRef.on('value', snapshot => {
+      snapshot.forEach((child) => {
+        childkey.push(child.key);
+      })
+    });
+
+    db.ref('/' + uid + '/lists' + '/' + childkey[listIndex] + '/items' + '/' +itemIndex ).set(itemInfo);
+
+    // console.log("before" + this.state.checked);
+    // if (this.state.checked == true) {
+    //   this.state.checked = false;
+    //   this.setState({ checked: false });
+    //   console.log("after 1" + this.state.checked);
+    // } else {
+    //   this.state.checked = true;
+    //   this.setState({ checked: true });
+    //   console.log("after 2" + this.state.checked);
+    // }
+
+
+    // itemslist[index]['check'] = this.state.checked;
+    // const uid = firebase.auth().currentUser.uid;
+    // let itemsRef = db.ref('/' + uid + '/lists');
+    // const childkey = [];
+    // itemsRef.on('value', snapshot => {
+    //   snapshot.forEach((child) => {
+    //     childkey.push(child.key);
+    //   })
+    // });
+    // console.log('listname' + this.state.listname);
+    // db.ref('/' + uid + '/lists' + '/' + childkey[num]).set({
+    //   items: itemslist,
+    //   name: this.state.listname,
+    //   date: this.state.date
+
+    // });
+    // this.setState({ checked: false });
   }
 
   getTextStyle(checked) {
@@ -213,12 +265,19 @@ export default class List extends Component {
               </CollapseHeader>
               <CollapseBody>
                 <Text style={styles.itemheader}  >{"Items :"}</Text>
-                {element.items.map((info, index) => {
+                {element.items.map((info, num) => {
                   return (
 
                     <View>
                       {/* <Text style={styles.headercollapse}  >{index + 1 + ": "}{info.name}</Text> */}
-                      <Text style={this.getTextStyle(info.check)}  >{index + 1 + ": "}{info.name}</Text>
+                      {/* <Text style={this.getTextStyle(info.check)}  >{index + 1 + ": "}{info.name}</Text> */}
+                      <CheckBox
+                        // check={this.state.checked[index]}
+                        // onPress={() => this.onChangeCheck(index)} />
+                        tintColors={{ true: '#bc8f8f', false: '#bc8f8f' }}
+                        value={this.state.checked}
+                        onValueChange={() => this.onChangeCheck(info, num, index)} />
+                      <Text style={this.getTextStyle(info.check)}>{info.name}</Text>
                     </View>
                   );
 
