@@ -275,7 +275,7 @@ export default class List extends Component {
                         // check={this.state.checked[index]}
                         // onPress={() => this.onChangeCheck(index)} />
                         tintColors={{ true: '#bc8f8f', false: '#bc8f8f' }}
-                        value={this.state.checked}
+                        value={info.check}
                         onValueChange={() => this.onChangeCheck(info, num, index)} />
                       <Text style={this.getTextStyle(info.check)}>{info.name}</Text>
                     </View>

@@ -78,24 +78,18 @@ export default class List extends Component {
   }
 
   onChangeCheck(num, index, itemslist) {
-    console.log("*****MY PRINTING STARTS******");
-    console.log(num);
-    console.log(index);
-    console.log(itemslist);
-    console.log("*****MY PRINTING ENDS******");
-    console.log("before" + this.state.checked);
-    if (this.state.checked == true) {
-      this.state.checked = false;
-      this.setState({ checked: false });
-      console.log("after 1" + this.state.checked);
-    } else {
-      this.state.checked = true;
-      this.setState({ checked: true });
-      console.log("after 2" + this.state.checked);
-    }
+    // if (this.state.checked == true) {
+    //   this.state.checked = false;
+    //   this.setState({ checked: false });
+    //   console.log("after 1" + this.state.checked);
+    // } else {
+    //   this.state.checked = true;
+    //   this.setState({ checked: true });
+    //   console.log("after 2" + this.state.checked);
+    // }
 
 
-    itemslist[index]['check'] = this.state.checked;
+    itemslist[index]['check'] = !(itemslist[index]['check']);
     const uid = firebase.auth().currentUser.uid;
     let itemsRef = db.ref('/' + uid + '/lists');
     const childkey = [];
@@ -112,7 +106,6 @@ export default class List extends Component {
       items: itemslist,
       name: this.state.listname,
       date: this.state.date
-
     });
     this.setState({ checked: false });
   }
@@ -442,7 +435,7 @@ color="#bc8f8f"
                               // check={this.state.checked[index]}
                               // onPress={() => this.onChangeCheck(index)} />
                               tintColors={{ true: '#bc8f8f', false: '#bc8f8f' }}
-                              value={this.state.checked}
+                              value={info.check}
                               onValueChange={() => this.onChangeCheck(num, index, deletelist)} />
                           </View>
                           <View style={{ marginLeft: 20 }, { marginRight: 20 }, { flex: 4 }}>
