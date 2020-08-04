@@ -45,18 +45,11 @@ const AddList = () => {
         newItems[index]["check"] = false;
         //newItems[index] = { 'name': e.nativeEvent.text };
         //newItems[index][0]= e.nativeEvent.text;
+        console.log(newItems[index]);
         setItems(newItems);
-        setItemNames((i) => i.concat(e.nativeEvent.text));
+        //setItemNames((i) => i.concat(e.nativeEvent.text));
     };
 
-    const getPlaceholderName = (index) => {
-        return "Name";
-        // if (newItems[index]["name"]) {
-        //     return newItems[index]["name"];
-        // } else {
-        //     return "Name";
-        // }
-    }
 
     const handleChangePrice = (e, index) => {
         console.log('INDEX:');
@@ -65,6 +58,7 @@ const AddList = () => {
         const newItems = items;
         newItems[index]["price"] = e.nativeEvent.text;
         //newItems[index][1] = e.nativeEvent.text;
+        console.log(newItems[index]);
         setItems(newItems);
     };
 
@@ -75,6 +69,7 @@ const AddList = () => {
         const newItems = items;
         newItems[index]["quantity"] = e.nativeEvent.text;
         //newItems[index][1] = e.nativeEvent.text;
+        console.log(newItems[index]);
         setItems(newItems);
     };
 
@@ -85,6 +80,7 @@ const AddList = () => {
         const newItems = items;
         newItems[index]["notes"] = e.nativeEvent.text;
         //newItems[index][1] = e.nativeEvent.text;
+        console.log(newItems[index]);
         setItems(newItems);
     };
 
@@ -92,7 +88,7 @@ const AddList = () => {
         setAdd(true);
         const newItems = items;
         //newItems.push({"name":"", "notes":"","notes":"","price":"","quantity":""});
-         newItems.push({});
+        newItems.push({});
 
         // const length = items.length;
         // console.log(length);
@@ -165,11 +161,39 @@ const AddList = () => {
                                                     <TextInput style={styles.newDetailInput} value={items[index]["name"]} onChange={(e) => handleChangeName(e, index)} />
                                                 </View>
                                             </View>
+                                            <View style={{ flexDirection: "row" }} >
+                                                <View>
+                                                    <Text style={styles.newDetailHeader}  >{"Price: "}</Text>
+                                                </View>
+                                                <View>
+                                                    {/* <Text style={styles.detailInput}  >{info.name}</Text> */}
+                                                    <TextInput style={styles.newDetailInput} value={items[index]["price"]} onChange={(e) => handleChangePrice(e, index)} />
+                                                </View>
+                                            </View>
+                                            <View style={{ flexDirection: "row" }} >
+                                                <View>
+                                                    <Text style={styles.newDetailHeader}  >{"Quantity: "}</Text>
+                                                </View>
+                                                <View>
+                                                    {/* <Text style={styles.detailInput}  >{info.name}</Text> */}
+                                                    <TextInput style={styles.newDetailInput} value={items[index]["quantity"]} onChange={(e) => handleChangeQuantity(e, index)} />
+                                                </View>
+                                            </View>
+                                            <View style={{ flexDirection: "row" }} >
+                                                <View>
+                                                    <Text style={styles.newDetailHeader}  >{"Notes: "}</Text>
+                                                </View>
+                                                <View>
+                                                    {/* <Text style={styles.detailInput}  >{info.name}</Text> */}
+                                                    <TextInput style={styles.newDetailInput} value={items[index]["notes"]} onChange={(e) => handleChangeNotes(e, index)} />
+                                                </View>
+                                            </View>
 
-                                            <TextInput style={styles.detailInput} placeholder="Name" onChange={(e) => handleChangeName(e, index)} />
+                                            {/* ORIGINAL TEXT INPUTS FOR EACH ITEM, REPLACED WITH THE ABOVE TEXTINPUTS WITH A LABEL EACH */}
+                                            {/* <TextInput style={styles.detailInput} placeholder="Name" onChange={(e) => handleChangeName(e, index)} />
                                             <TextInput style={styles.detailInput} placeholder="Price" onChange={(e) => handleChangePrice(e, index)} />
                                             <TextInput style={styles.detailInput} placeholder="Quantity" onChange={(e) => handleChangeQuantity(e, index)} />
-                                            <TextInput style={styles.detailInput} placeholder="Notes" onChange={(e) => handleChangeNotes(e, index)} />
+                                            <TextInput style={styles.detailInput} placeholder="Notes" onChange={(e) => handleChangeNotes(e, index)} /> */}
 
                                             {/* <TouchableHighlight
                                                 color="#8b4513"
@@ -369,7 +393,7 @@ const styles = StyleSheet.create({
         padding: 5,
         marginTop: 10,
         marginLeft: 5,
-    
+
         fontSize: 18,
         borderWidth: 2,
         borderColor: 'rgba(0, 0, 0, 0)',
@@ -377,7 +401,7 @@ const styles = StyleSheet.create({
         color: 'black',
         width: 90,
         alignSelf: 'center',
-      },
+    },
     newDetailInput: {
         // height: 30,
         padding: 5,
@@ -388,10 +412,11 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#bc8f8f',
         borderRadius: 6,
-        color: 'black',
+        // color: 'black',
+        color: '#8b4513',
         width: 230,
         alignSelf: 'center',
-      },
+    },
     detailInput: {
         height: 40,
         padding: 2,
