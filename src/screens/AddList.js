@@ -18,7 +18,7 @@ import firebase from 'firebase';
 //COMPONENTS
 import InputItem from '../components/InputItem';
 
-const AddList = () => {
+const AddList = ({ navigation }) => {
     const [name, setName] = useState('');
     const [items, setItems] = useState([{}]);
     const [itemNames, setItemNames] = useState([]);
@@ -34,6 +34,7 @@ const AddList = () => {
             date: date,
         });
         Alert.alert('List saved successfully');
+        navigation.navigate('List');
     };
 
     const handleChangeName = (e, index) => {

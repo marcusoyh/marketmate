@@ -12,6 +12,7 @@ const Home = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [displayName, setDisplayName] = useState();
   const [verifiedMessage, setVerifiedMessage] = useState();
+  const [verified, setVerified] = useState(false);
 
   useEffect(() => {
     getUser();
@@ -27,16 +28,20 @@ const Home = ({ navigation }) => {
     setCurrentUser(firebase.auth().currentUser);
     setEmail(user.email);
     setDisplayName(user.displayName);
-    setVerifiedMessage(user.isEmailVerified);
-    try {
-      if (user.isEmailVerified) {
-        setVerifiedMessage('Verified');
-      } else {
-        setVerifiedMessage('Unverified');
-      }
-    } catch (err) {
-      console.log(err.message);
-    }
+    console.log("CHECKING IF USER IS VERIFIED");
+    //console.log(firebase.auth().currentUser);
+    console.log(firebase.auth().currentUser["emailVerified"]);
+    setVerified(firebase.auth().currentUser["emailVerified"]);
+    //setVerifiedMessage(user.isEmailVerified);
+    // try {
+    //   if (user.isEmailVerified) {
+    //     setVerifiedMessage('Verified');
+    //   } else {
+    //     setVerifiedMessage('Unverified');
+    //   }
+    // } catch (err) {
+    //   console.log(err.message);
+    // }
   };
 
   const handleLogout = () => {
@@ -44,12 +49,13 @@ const Home = ({ navigation }) => {
     navigation.navigate('Signup');
   };
 
-  return (
+  if (verified) { 
+    return (
 
     <View style={styles.container}>
 
       <ImageBackground source={require('./assets/logo.png')} style={styles.image}>
-        <Text style={styles.welcomeheader}>Welcome 🌻</Text>
+    <Text style={styles.welcomeheader}>🌻Welcome {displayName}🌻</Text>
         <Text style={styles.welcometext}>Your gateway to great shopping.</Text>
       </ImageBackground>
 
@@ -105,6 +111,15 @@ const Home = ({ navigation }) => {
     </View>
 
   );
+    } else {
+      return (
+        <View>
+          <Text>Unverified</Text>
+        </View>
+      )
+        
+      
+    }
 };
 
 export default Home;
