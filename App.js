@@ -12,7 +12,7 @@ import LoadingScreen from './src/screens/LoadingScreen';
 //import CreateList from './src/sreens/CreateList';
 import AddList from './src/screens/AddList';
 import ViewListDetails from './src/screens/ViewListDetails';
-
+import Reset from './src/screens/Reset';
 import ViewCategories from './src/screens/ViewCategories';
 
 const App = () => {
@@ -24,6 +24,7 @@ const App = () => {
     Signup,
     LoadingScreen,
     AddList,
+    Reset,
     ViewListDetails,
     ViewCategories,
   },

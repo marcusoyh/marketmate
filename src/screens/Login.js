@@ -26,6 +26,10 @@ const Login = ({ navigation }) => {
             .catch(error => setErrorMessage(error.message));
     };
 
+    const handleReset = () => {
+        console.log("RESETTING");
+    }
+
     return (
 
 
@@ -64,7 +68,23 @@ const Login = ({ navigation }) => {
               Sign Up{' '}
                         </Text>
                     </Text>
+
                 </View>
+                <View style={{ top: 540, position: 'absolute', alignSelf: 'center' }}>
+                    <Text>
+                        {' '}
+            Forgot your password?{' '}
+                        <Text
+                            onPress={() => navigation.navigate('Reset')}
+                            style={{ color: '#8b4513', fontSize: 18 }}>
+                            {' '}
+              Reset Password{' '}
+                        </Text>
+                    </Text>
+                </View>
+
+
+
             </View>
         </ImageBackground>
 

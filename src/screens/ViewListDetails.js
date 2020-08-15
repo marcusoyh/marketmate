@@ -26,13 +26,17 @@ export default class List extends Component {
   };
 
   componentDidMount() {
+    console.log("componentdidmount");
     const uid = firebase.auth().currentUser.uid;
     let itemsRef = db.ref('/' + uid + '/lists');
     itemsRef.on('value', snapshot => {
-      snapshot.forEach((child) => { console.log("childkey" + child.key); })
+      //snapshot.forEach((child) => { console.log("childkey" + child.key); })
       let data = snapshot.val();
       let items = Object.values(data);
       this.setState({ items });
+
+      //console.log("CHECKING PRICE NOW");
+      //console.log(items[1]["items"][0]["price"]);
     });
   }
 
@@ -124,6 +128,7 @@ export default class List extends Component {
       }
     }
   }
+
   inputValueUpdate(val, prop, index) {
     const newItems = this.state.additems;
     newItems.map((item, index) => {
