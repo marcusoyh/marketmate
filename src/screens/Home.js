@@ -30,7 +30,7 @@ const Home = ({ navigation }) => {
     setDisplayName(user.displayName);
     console.log("CHECKING IF USER IS VERIFIED");
     //console.log(firebase.auth().currentUser);
-    console.log(firebase.auth().currentUser["emailVerified"]);
+    //console.log(firebase.auth().currentUser["emailVerified"]);
     setVerified(firebase.auth().currentUser["emailVerified"]);
     //setVerifiedMessage(user.isEmailVerified);
     // try {
@@ -46,30 +46,34 @@ const Home = ({ navigation }) => {
 
   const handleLogout = () => {
     firebase.auth().signOut();
-    navigation.navigate('Signup');
+    navigation.navigate('Login');
   };
 
-  if (verified) { 
+  const refresh = () => {
+    setVerified(firebase.auth().currentUser["emailVerified"]);
+  };
+
+  if (verified) {
     return (
 
-    <View style={styles.container}>
+      <View style={styles.container}>
 
-      <ImageBackground source={require('./assets/logo.png')} style={styles.image}>
-    <Text style={styles.welcomeheader}>🌻Welcome {displayName}🌻</Text>
-        <Text style={styles.welcometext}>Your gateway to great shopping.</Text>
-      </ImageBackground>
+        <ImageBackground source={require('./assets/logo.png')} style={styles.image}>
+          <Text style={styles.welcomeheader}>🌻Welcome {displayName}🌻</Text>
+          <Text style={styles.welcometext}>Your gateway to great shopping.</Text>
+        </ImageBackground>
 
 
 
-      {/* <Button
-        title="Logout"
-        onPress={handleLogout} /> */}
-      {/* <Button
+        <Button
+          title="Logout"
+          onPress={handleLogout} />
+        {/* <Button
         title="Add an Item"
         onPress={() => navigation.navigate('AddItem')}
       /> */}
 
-      {/* <Button
+        {/* <Button
         title="List of Items"
         color="green"
         onPress={() => navigation.navigate('List')}
@@ -82,44 +86,52 @@ const Home = ({ navigation }) => {
 
 
 
-      <View style={{ flex: 6 }, { flexDirection: 'row' }}>
-        <View style={{ flex: 3, backgroundColor: '#dcdcdc', height: 170, opacity: 0.7 }} >
-          <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate('List')}
-          >
-            <Image
-              source={require('./assets/viewlists.png')}
-              style={styles.listimage}
-            />
-            <Text style={styles.menutext}>View My Lists</Text>
+        <View style={{ flex: 6 }, { flexDirection: 'row' }}>
+          <View style={{ flex: 3, backgroundColor: '#dcdcdc', height: 170, opacity: 0.7 }} >
+            <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate('List')}
+            >
+              <Image
+                source={require('./assets/viewlists.png')}
+                style={styles.listimage}
+              />
+              <Text style={styles.menutext}>View My Lists</Text>
 
-          </TouchableOpacity>
-        </View>
-        <View style={{ flex: 3, backgroundColor: '#dcdcdc', height: 170, opacity: 0.7 }} >
-          <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate('AddList')}
-          >
-            <Image
-              source={require('./assets/addlists.png')}
-              style={styles.listimage}
-            />
-            <Text style={styles.menutext}>Create New List</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{ flex: 3, backgroundColor: '#dcdcdc', height: 170, opacity: 0.7 }} >
+            <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate('AddList')}
+            >
+              <Image
+                source={require('./assets/addlists.png')}
+                style={styles.listimage}
+              />
+              <Text style={styles.menutext}>Create New List</Text>
 
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-      {/* <View style={{ flex: 3 }, { flexDirection: 'row' }}>
+        {/* <View style={{ flex: 3 }, { flexDirection: 'row' }}>
       </View> */}
-    </View>
+      </View>
 
-  );
-    } else {
-      return (
-        <View>
-          <Text>Unverified</Text>
-        </View>
-      )
-        
-      
-    }
+    );
+  } else {
+    return (
+      <View>
+        <Text>Your account has not been verified yet. Please check your email address and verify your account.</Text>
+        <Text>Please click on the refresh button below once verified.</Text>
+        <Button
+          title="Refresh"
+          onPress={refresh} />
+        {/* <Button
+        title="Add an Item"
+        onPress={() => navigation.navigate('AddItem')}
+      /> */}
+      </View>
+    )
+
+
+  }
 };
 
 export default Home;

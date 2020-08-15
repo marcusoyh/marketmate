@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Button, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button, ImageBackground, Image, TouchableOpacity, Alert } from 'react-native';
 // import styles from './Style';
 
 import firebase from 'firebase';
@@ -16,11 +16,19 @@ const Login = ({ navigation }) => {
             .auth()
             .signInWithEmailAndPassword(email, password)
             .then(() => {
-                setErrorMessage('');
-                navigation.navigate('Home')
+                if (firebase.auth().currentUser["emailVerified"]) {
+                    //setErrorMessage('');
+                    navigation.navigate('Home');
+                } else {
+                    Alert.alert('Please check your email and verify your account');
+                }
             })
             .catch(error => setErrorMessage(error.message));
     };
+
+    const handleReset = () => {
+        console.log("RESETTING");
+    }
 
     return (
 
@@ -60,7 +68,23 @@ const Login = ({ navigation }) => {
               Sign Up{' '}
                         </Text>
                     </Text>
+
                 </View>
+                <View style={{ top: 540, position: 'absolute', alignSelf: 'center' }}>
+                    <Text>
+                        {' '}
+            Forgot your password?{' '}
+                        <Text
+                            onPress={() => navigation.navigate('Reset')}
+                            style={{ color: '#8b4513', fontSize: 18 }}>
+                            {' '}
+              Reset Password{' '}
+                        </Text>
+                    </Text>
+                </View>
+
+
+
             </View>
         </ImageBackground>
 

@@ -2,7 +2,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TextInput, View, Image, Button, TouchableOpacity, ImageBackground } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Image, Button, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 // import styles from './Style';
 import firebase from 'firebase';
 
@@ -35,7 +35,10 @@ const Signup = ({ navigation }) => {
                     displayName: name,
                 }).then(() => {
                     userCredentials.user.sendEmailVerification();
-                }).then(() => navigation.navigate('Home'));
+                }).then(() => {
+                    Alert.alert('Signup complete, please check your email to verify your account');
+                    navigation.navigate('Login');
+                })
             })
             .catch(error => setErrorMessage(error.message));
     };
