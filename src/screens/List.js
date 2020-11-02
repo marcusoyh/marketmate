@@ -20,12 +20,11 @@ export default class List extends Component {
     const uid = firebase.auth().currentUser.uid;
     let itemsRef = db.ref('/' + uid + '/lists');
     itemsRef.on('value', snapshot => {
-      // snapshot.forEach((child) => {
-      //   console.log(child.key);
-      // })
       let data = snapshot.val();
-      let items = Object.values(data);
-      this.setState({ items });
+      if (data != null) {
+        let items = Object.values(data);
+        this.setState({ items });
+      }
     });
 
   }
@@ -56,7 +55,6 @@ export default class List extends Component {
     });
 
 
-    // console.log('/' + uid + '/lists' + '/' + childkey[list] + '/items/' + item);
     db.ref('/' + uid + '/lists' + '/' + childkey[list]).remove();
 
 
@@ -86,35 +84,6 @@ export default class List extends Component {
 
     db.ref('/' + uid + '/lists' + '/' + childkey[listIndex] + '/items' + '/' + itemIndex).set(itemInfo);
 
-    // console.log("before" + this.state.checked);
-    // if (this.state.checked == true) {
-    //   this.state.checked = false;
-    //   this.setState({ checked: false });
-    //   console.log("after 1" + this.state.checked);
-    // } else {
-    //   this.state.checked = true;
-    //   this.setState({ checked: true });
-    //   console.log("after 2" + this.state.checked);
-    // }
-
-
-    // itemslist[index]['check'] = this.state.checked;
-    // const uid = firebase.auth().currentUser.uid;
-    // let itemsRef = db.ref('/' + uid + '/lists');
-    // const childkey = [];
-    // itemsRef.on('value', snapshot => {
-    //   snapshot.forEach((child) => {
-    //     childkey.push(child.key);
-    //   })
-    // });
-    // console.log('listname' + this.state.listname);
-    // db.ref('/' + uid + '/lists' + '/' + childkey[num]).set({
-    //   items: itemslist,
-    //   name: this.state.listname,
-    //   date: this.state.date
-
-    // });
-    // this.setState({ checked: false });
   }
 
   getTextStyle(checked) {
@@ -279,7 +248,7 @@ export default class List extends Component {
                           value={info.check}
                           onValueChange={() => this.onChangeCheck(info, num, index)} />
                       </View>
-                      <View style = {{flex:20}}>
+                      <View style={{ flex: 20 }}>
                         <Text style={this.getTextStyle(info.check)}>{num + 1 + ": "}{info.name}</Text>
                       </View>
                     </View>
